@@ -454,200 +454,312 @@ if "Overview" in page:
 # ════════════════════════════════════════════════════════════════════════════
 elif "Executive Summary" in page:
     hero(
-        "Research Overview · Six Research Questions",
-        "Executive Summary",
-        "A comprehensive statistical learning pipeline examining how behavioral risk factors predict population-level obesity across U.S. demographic groups."
+        "Understanding America's Obesity Crisis · CDC BRFSS 2011–2024",
+        "Does Exercise and Diet Explain Why More Americans Are Obese?",
+        "A plain-language summary of a national data study covering 14 years, 55 U.S. locations, and 110,000+ survey responses."
     )
 
-    # ── Top KPIs ──────────────────────────────────────────────────────────
-    c1,c2,c3,c4,c5,c6 = st.columns(6)
-    with c1: st.markdown(kpi("Dataset", "CDC BRFSS", "2011–2024 · 14 years"), unsafe_allow_html=True)
-    with c2: st.markdown(kpi("Analysis", "Ecological", "Population-level %"), unsafe_allow_html=True)
-    with c3: st.markdown(kpi("Observations", "391 / 84", "Activity / Diet rows"), unsafe_allow_html=True)
-    with c4: st.markdown(kpi("Best Reg. R²", "0.237", "Ridge, combined model"), unsafe_allow_html=True)
-    with c5: st.markdown(kpi("Best CV Acc.", "70.3%", "Random Forest · Diet"), unsafe_allow_html=True)
-    with c6: st.markdown(kpi("Clusters", "k = 4", "Silhouette = 0.43"), unsafe_allow_html=True)
+    # ── 4 headline KPIs ───────────────────────────────────────────────────
+    c1, c2, c3, c4 = st.columns(4)
+    with c1: st.markdown(kpi("Obese in 2024", "33%", "up from 27.5% in 2011"), unsafe_allow_html=True)
+    with c2: st.markdown(kpi("Rise Since 2011", "+5.8 pts", "affecting tens of millions"), unsafe_allow_html=True)
+    with c3: st.markdown(kpi("Surveys Analyzed", "110,880", "raw responses cleaned"), unsafe_allow_html=True)
+    with c4: st.markdown(kpi("Years of Data", "14 yrs", "2011 through 2024"), unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    # ── Study Overview ────────────────────────────────────────────────────
-    section("Study Overview")
-    card("""
-        <p style='margin:0 0 14px 0;'>
-            This report presents a comprehensive statistical learning analysis of the
-            <b>CDC Behavioral Risk Factor Surveillance System (BRFSS)</b> spanning 2011–2024.
-            Using a five-stage pipeline of supervised and unsupervised machine learning methods,
-            we investigate whether national <b>physical activity levels</b> and <b>dietary habits</b>
-            can predict <b>obesity rates</b> across U.S. demographic groups.
+    # ── The Big Picture ───────────────────────────────────────────────────
+    section("The Big Picture")
+    card(f"""
+        <p style='margin:0 0 14px 0; font-size:15px;'>
+            Over the past 14 years, obesity among American adults has risen from
+            <b>27.5% to 33.3%</b> — an increase of nearly 6 percentage points affecting tens of millions of people.
+            This study used a large national survey — the CDC's Behavioral Risk Factor Surveillance System (BRFSS) —
+            to ask a direct question:
+        </p>
+        <p style='margin:0 0 14px 0; font-size:16px; font-weight:700; color:{NAVY};
+                  border-left:4px solid {GOLD}; padding-left:16px; line-height:1.6;'>
+            Can we explain why obesity is rising by looking at whether Americans are exercising less
+            or eating worse?
         </p>
         <p style='margin:0 0 14px 0;'>
-            A critical structural feature of this project is its <b>ecological framing</b>: every data
-            point is a population-level percentage — the share of adults in a given state, year,
-            and demographic group who meet a criterion — not an individual's personal record.
-            This produces 391 observations for the activity dataset (Inactive %) and 84 observations
-            for the diet dataset (PoorDiet %), reflecting the limited years in which diet survey
-            questions were fielded (2017, 2019, 2021). All findings must be interpreted with this
-            ecological fallacy caveat in mind: associations observed at the population level do not
-            necessarily hold for individuals.
+            The short answer: <b>partially.</b> Physical inactivity and poor diet both predict higher obesity rates —
+            but together they explain only about a quarter of the variation. The remaining three-quarters comes
+            from factors this dataset cannot measure. And critically, <b>obesity has risen over 14 years even
+            though exercise levels have stayed roughly the same.</b>
         </p>
         <p style='margin:0;'>
-            The analysis is organized around <b>six structured research questions</b> covering
-            regression, classification, regularization (Ridge), cross-validation, and clustering,
-            forming an end-to-end machine learning workflow applicable to public health, insurance,
-            and policy domains.
+            This tells us something important: reducing obesity in America will require more than encouraging
+            people to exercise more and eat better. The structural conditions that make healthy living harder —
+            income, education, access to affordable food and safe outdoor spaces — are at least as important
+            as individual behavior.
         </p>
     """)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+    # ── What We Studied ───────────────────────────────────────────────────
+    section("What We Studied")
+    card(f"""
+        <p style='margin:0 0 12px 0;'>
+            The BRFSS is a telephone survey conducted every year across all 50 states plus Washington D.C.
+            and U.S. territories. It asks adults about their health, habits, and lifestyle.
+            We used three types of questions:
+        </p>
+        <div style='display:flex; flex-wrap:wrap; gap:12px; margin-top:8px;'>
+            <div style='flex:1; min-width:200px; background:{BG}; border-radius:10px;
+                        padding:16px 18px; border:1px solid {BORDER};'>
+                <div style='font-size:22px; margin-bottom:8px;'>⚖️</div>
+                <div style='font-weight:700; color:{NAVY}; margin-bottom:4px;'>Obesity Rates</div>
+                <div style='font-size:13px; color:{SLATE}; line-height:1.6;'>
+                    What percentage of adults in each group are obese?
+                </div>
+            </div>
+            <div style='flex:1; min-width:200px; background:{BG}; border-radius:10px;
+                        padding:16px 18px; border:1px solid {BORDER};'>
+                <div style='font-size:22px; margin-bottom:8px;'>🏃</div>
+                <div style='font-weight:700; color:{NAVY}; margin-bottom:4px;'>Physical Activity</div>
+                <div style='font-size:13px; color:{SLATE}; line-height:1.6;'>
+                    What percentage of adults do no leisure-time physical activity at all?
+                </div>
+            </div>
+            <div style='flex:1; min-width:200px; background:{BG}; border-radius:10px;
+                        padding:16px 18px; border:1px solid {BORDER};'>
+                <div style='font-size:22px; margin-bottom:8px;'>🥗</div>
+                <div style='font-weight:700; color:{NAVY}; margin-bottom:4px;'>Diet Quality</div>
+                <div style='font-size:13px; color:{SLATE}; line-height:1.6;'>
+                    What percentage of adults eat fruit less than once a day, or vegetables less than once a day?
+                </div>
+            </div>
+        </div>
+        <p style='margin:14px 0 0 0; font-size:13.5px; color:{SLATE};'>
+            We looked at these figures broken down by <b>age, income, education, race/ethnicity, and sex</b> —
+            giving us a detailed picture of how obesity and its behavioral predictors differ
+            across the American population.
+        </p>
+    """)
 
-    # ── Six Research Questions ────────────────────────────────────────────
-    section("Research Questions & Key Findings")
-    rq_data = [
-        ("RQ1", "📈", "Regression: Inactivity → Obesity",
-         "OLS · Model 1",
-         "Does the percentage of physically inactive adults predict obesity rates across demographic groups?",
-         "Yes — inactivity is a statistically significant predictor. β = 0.445 (p < 0.001), R² = 0.213. "
-         "For every 1 pp increase in inactivity, obesity rises by ~0.45 pp at the population level. "
-         "Moderate fit, reflecting real-world ecological complexity."),
-        ("RQ2", "🥗", "Regression: Diet → Obesity",
-         "OLS · Model 2",
-         "Does poor dietary behavior (low fruit & vegetable consumption) predict obesity rates?",
-         "Yes — PoorDiet has a larger per-unit effect than inactivity. β = 0.658 (p < 0.001), R² = 0.170. "
-         "However, diet data is limited to 3 survey years (2017, 2019, 2021), reducing power to n = 84."),
-        ("RQ3", "🔗", "Regression: Combined Model",
-         "Ridge · Model 3",
-         "Does combining inactivity and diet improve prediction over either alone?",
-         "Yes — the Ridge-regularized combined model achieves R² = 0.237 (CV R² = 0.161). "
-         "Ridge was chosen over OLS because the two predictors are collinear (VIF = 28.15), "
-         "causing OLS coefficient instability. Ridge shrinkage resolves this."),
-        ("RQ4", "🎯", "Classification: Activity Dataset",
-         "5-Fold CV · Dataset A (n=391)",
-         "Can demographic strata and inactivity rates be used to classify high vs. low obesity risk?",
-         "Random Forest achieves the best cross-validated accuracy: 67.8% (5-fold stratified CV). "
-         "Features: Inactive % + demographic stratification category. "
-         "Decision Tree and Logistic Regression also competitive; SVM lowest."),
-        ("RQ5", "🏆", "Classification: Diet Dataset",
-         "5-Fold CV · Dataset B (n=84)",
-         "Does adding poor diet as a feature improve classification of obesity risk groups?",
-         "Yes — adding PoorDiet lifts Random Forest CV accuracy to 70.3% (vs. 67.8% without). "
-         "This improvement is meaningful given the smaller sample (n=84) and confirms "
-         "diet's incremental predictive value beyond activity alone."),
-        ("RQ6", "🔵", "Clustering & PCA",
-         "K-Means · k=4 · PCA",
-         "Do natural behavioral clusters exist among U.S. demographic groups in the BRFSS data?",
-         "K-Means (k=4) reveals four clinically meaningful population subgroups with silhouette = 0.43: "
-         "(1) Low Obesity/Active, (2) High Obesity/Sedentary, (3) Moderate Risk, and (4) a "
-         "Young Adult Paradox cluster — low obesity despite high inactivity. "
-         "PCA confirms clear cluster separation in 2D space."),
+    # ── 5 Key Findings ────────────────────────────────────────────────────
+    section("5 Key Findings")
+
+    findings_data = [
+        ("📈", "Obesity has risen steadily — and it's not just about exercise",
+         "National obesity rose from 27.5% in 2011 to 33.3% in 2024. Over the same period, the proportion "
+         "of Americans who do no physical activity barely changed — it actually declined very slightly. "
+         "<b>Obesity went up while inactivity stayed flat.</b> This means something beyond exercise is driving the obesity trend."),
+        ("🎓", "Education and income are the strongest predictors",
+         "The most powerful finding in the entire study: college graduates have inactivity rates around "
+         "<b>14%</b> and obesity rates around <b>22%</b>. Adults without a high school diploma have "
+         "inactivity rates of <b>41%</b> and obesity rates of <b>36%</b>. A 27 percentage point gap in "
+         "inactivity and a 14 point gap in obesity — driven almost entirely by socioeconomic position, "
+         "not individual willpower."),
+        ("🥗", "Diet matters — and may matter more than exercise",
+         "When diet data was available, poor dietary quality showed a <b>larger effect on obesity than "
+         "physical inactivity</b>. For every percentage point more people eating poorly, obesity rises by "
+         "0.66 points — compared to 0.45 points for inactivity. Diet quality has also been worsening: "
+         "fewer Americans are eating fruit daily than six years ago. Unfortunately diet data is only "
+         "available for three years of the survey, limiting how much we can say with confidence."),
+        ("👶", "Young adults are a hidden risk group",
+         "Young adults (18–24) have the <b>lowest obesity rates</b> of any age group — around 17–18%. "
+         "But they also have the <b>worst dietary habits</b>. Their metabolism currently protects them "
+         "from the effects of poor diet. As they age, this protection fades — making early dietary "
+         "intervention in young adults a priority even when obesity is not yet visible."),
+        ("🔵", "Race and ethnicity show the widest variation",
+         "Non-Hispanic Black adults have the highest obesity rates at around <b>40%</b>. Asian adults "
+         "have the lowest at approximately <b>12%</b> — a 28 percentage point gap between two demographic "
+         "groups. These differences reflect complex interactions of culture, socioeconomic history, and "
+         "access to resources — not simple behavioral differences."),
     ]
 
-    for rq_id, icon, title, badge, question, rq_finding in rq_data:
+    for icon, title, body in findings_data:
         st.markdown(f"""
-        <div class="rq-card">
-            <div style='display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;'>
-                <span style='background:{NAVY}; color:#fff; font-size:10px; font-weight:700;
-                             padding:3px 10px; border-radius:4px; letter-spacing:0.5px;'>{rq_id}</span>
-                <span style='font-size:17px;'>{icon}</span>
-                <span style='font-size:14px; font-weight:700; color:{TEXT};'>{title}</span>
-                <span style='margin-left:auto; background:{BG}; color:{SLATE}; border:1px solid {BORDER};
-                             font-size:11px; padding:3px 10px; border-radius:20px;'>{badge}</span>
+        <div class="finding-box">
+            <div style='display:flex; align-items:flex-start; gap:14px;'>
+                <span style='font-size:26px; line-height:1;'>{icon}</span>
+                <div style='flex:1;'>
+                    <div class="fwinner" style='font-size:17px; margin:0 0 8px 0;'>{title}</div>
+                    <div class="fbody" style='border-top:none; padding-top:0; margin-top:0;
+                                              font-size:14px;'>{body}</div>
+                </div>
             </div>
-            <p style='font-size:13px; color:{MUTED}; margin:0 0 8px 0; font-style:italic; line-height:1.6;'>
-                {question}
-            </p>
-            <p style='font-size:13.5px; color:{SLATE}; margin:0; line-height:1.75;'>
-                ✅ {rq_finding}
-            </p>
         </div>
         """, unsafe_allow_html=True)
+
+    # ── What the Data Analysis Found ──────────────────────────────────────
+    section("What the Data Analysis Found")
+
+    col1, col2 = st.columns([3, 2])
+    with col1:
+        card(f"""
+            <div style='font-size:15px; font-weight:700; color:{NAVY}; margin-bottom:12px;'>
+                Predicting obesity from behavior
+            </div>
+            <p style='margin:0 0 12px 0;'>
+                Using statistical models, we tested whether physical inactivity and diet quality could
+                predict obesity rates across different groups. Both were significant predictors — meaning
+                the relationships are real and not due to chance. But together, they explained only about
+                <b>24% of the variation in obesity rates.</b>
+            </p>
+            <p style='margin:0; color:{SLATE}; font-size:13.5px;'>
+                In plain terms: if you know how inactive and how poorly-fed a group is, you can make a
+                better-than-random guess about their obesity rate — but most of the picture is missing.
+            </p>
+        """)
+    with col2:
+        for stat, label in [
+            ("0.45%", "rise in obesity for every 1% more people who are physically inactive"),
+            ("0.66%", "rise in obesity for every 1% more people with a poor diet"),
+            ("24%", "of obesity variation explained by both behavioral indicators together"),
+            ("76%", "of obesity variation NOT explained — driven by unmeasured factors"),
+        ]:
+            st.markdown(f"""
+            <div style='background:{BG}; border:1px solid {BORDER}; border-radius:10px;
+                        padding:14px 16px; margin-bottom:10px;'>
+                <div style='font-size:22px; font-weight:800; color:{NAVY};
+                            letter-spacing:-0.5px;'>{stat}</div>
+                <div style='font-size:12px; color:{SLATE}; margin-top:4px;
+                            line-height:1.5;'>{label}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-
-    # ── Methodology Summary ───────────────────────────────────────────────
-    section("Methodology at a Glance")
-    m1, m2, m3 = st.columns(3)
-    method_style = f"background:{WHITE}; border-radius:10px; padding:18px 20px; " \
-                   f"box-shadow:0 2px 8px rgba(13,43,94,0.07); font-size:13px; " \
-                   f"color:#333; line-height:1.9; height:100%;"
-    with m1:
-        st.markdown(f"""
-        <div style='{method_style}'>
-            <div style='font-size:14px; font-weight:700; color:{NAVY}; margin-bottom:8px;'>
-                📥 Data & ETL
-            </div>
-            Source: CDC BRFSS 2011–2024<br>
-            Raw: 110,880 rows × 33 columns<br>
-            Filter: Sample_Size ≥ 50<br>
-            Kept: 7 core columns<br>
-            Aggregation: National weighted %<br>
-            PoorDiet = (LowFruit + LowVeg) / 2<br>
-            Final: 391 rows (Activity), 84 (Diet)
+    card(f"""
+        <div style='font-size:15px; font-weight:700; color:{NAVY}; margin-bottom:12px;'>
+            Can a computer predict who is at high risk?
         </div>
-        """, unsafe_allow_html=True)
-    with m2:
-        st.markdown(f"""
-        <div style='{method_style}'>
-            <div style='font-size:14px; font-weight:700; color:{NAVY}; margin-bottom:8px;'>
-                🤖 Models Applied
-            </div>
-            OLS Regression (Models 1 & 2)<br>
-            Ridge Regression (Model 3, α tuned)<br>
-            Logistic Regression<br>
-            Decision Tree<br>
-            Random Forest (best performer)<br>
-            Support Vector Machine<br>
-            K-Means Clustering + PCA
-        </div>
-        """, unsafe_allow_html=True)
-    with m3:
-        st.markdown(f"""
-        <div style='{method_style}'>
-            <div style='font-size:14px; font-weight:700; color:{NAVY}; margin-bottom:8px;'>
-                ✅ Validation Strategy
-            </div>
-            Regression: OLS diagnostics,<br>
-            &nbsp;&nbsp;VIF check, residual analysis<br>
-            Ridge: α selected via CV<br>
-            Classification: 5-fold<br>
-            &nbsp;&nbsp;StratifiedKFold CV<br>
-            Clustering: Elbow + silhouette<br>
-            Ecological fallacy noted throughout
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    # ── Overall Conclusion ────────────────────────────────────────────────
-    section("Overall Conclusion")
-    st.markdown(f"""
-    <div style='background:linear-gradient(135deg, {NAVY} 0%, #1a3d7a 100%);
-                border-radius:10px; padding:24px 28px; color:#fff; line-height:1.85; font-size:14px;'>
         <p style='margin:0 0 12px 0;'>
-            Physical inactivity and poor diet are <b>statistically significant ecological predictors</b>
-            of population-level obesity rates in the United States. While regression R² values
-            (0.17–0.24) reflect the inherent complexity of predicting aggregate health outcomes,
-            classification models achieve meaningful accuracy (67–70% cross-validated), and
-            clustering reveals four distinct behavioral phenotypes with real-world public health relevance.
+            We tested four different machine learning algorithms to see whether they could correctly
+            classify demographic groups as high or low obesity risk using behavioral data.
+            <b>The best approaches achieved about 70% accuracy</b> — substantially better than guessing
+            (50%) but not highly reliable. Adding diet quality alongside inactivity improved accuracy
+            by 3–5 percentage points across all methods.
         </p>
-        <p style='margin:0;'>
-            The <b>Young Adult Paradox</b> cluster — groups showing low obesity despite high inactivity —
-            is the most policy-relevant finding, suggesting that age and metabolic factors may buffer
-            the effects of sedentary behavior in younger populations, with risk likely emerging later
-            in life. Together, these findings support targeted, demographically-aware public health
-            interventions rather than one-size-fits-all approaches.
+        <p style='margin:0; color:{SLATE}; font-size:13.5px;'>
+            The most important finding: physical inactivity alone accounts for over 90% of the predictive
+            signal when diet data is not available. When both measures are available,
+            <b>diet quality becomes the most important feature</b> — overtaking inactivity.
+            This reinforces that diet deserves as much policy attention as physical activity.
         </p>
+    """)
+
+    # ── Natural Groupings (Clusters) ──────────────────────────────────────
+    section("Natural Groupings in the Data")
+    card(f"""
+        <p style='margin:0 0 14px 0;'>
+            A technique called <b>clustering</b> — which finds natural groupings without being told
+            what to look for — identified <b>four distinct profiles</b> in the American adult population:
+        </p>
+        <div style='display:flex; flex-wrap:wrap; gap:10px;'>
+            <div style='flex:1; min-width:180px; background:#FEF2F2; border:1px solid #FECACA;
+                        border-radius:10px; padding:16px;'>
+                <div style='font-weight:700; color:#991B1B; margin-bottom:6px;'>🔴 High Risk Group</div>
+                <div style='font-size:12px; color:#7F1D1D; line-height:1.7;'>
+                    27% of records<br>
+                    Obesity: <b>36%</b> · Inactivity: <b>33%</b><br>
+                    Poor diet: <b>35%</b><br>
+                    <i>Driven by lower education and income groups</i>
+                </div>
+            </div>
+            <div style='flex:1; min-width:180px; background:#F0FDF4; border:1px solid #BBF7D0;
+                        border-radius:10px; padding:16px;'>
+                <div style='font-weight:700; color:#166534; margin-bottom:6px;'>🟢 Low Risk Group</div>
+                <div style='font-size:12px; color:#14532D; line-height:1.7;'>
+                    7% of records<br>
+                    Obesity: <b>26%</b> · Inactivity: <b>15%</b><br>
+                    Poor diet: <b>24%</b><br>
+                    <i>Driven by higher education and income groups</i>
+                </div>
+            </div>
+            <div style='flex:1; min-width:180px; background:#EFF6FF; border:1px solid #BFDBFE;
+                        border-radius:10px; padding:16px;'>
+                <div style='font-weight:700; color:#1E40AF; margin-bottom:6px;'>🔵 Moderate Group</div>
+                <div style='font-size:12px; color:#1E3A8A; line-height:1.7;'>
+                    58% of records<br>
+                    Obesity: <b>32%</b> · Inactivity: <b>25%</b><br>
+                    Poor diet: <b>29%</b><br>
+                    <i>The broad American average</i>
+                </div>
+            </div>
+            <div style='flex:1; min-width:180px; background:#FFFBEB; border:1px solid #FCD34D;
+                        border-radius:10px; padding:16px;'>
+                <div style='font-weight:700; color:#92400E; margin-bottom:6px;'>⚡ Young Adult Paradox</div>
+                <div style='font-size:12px; color:#78350F; line-height:1.7;'>
+                    7% of records<br>
+                    Obesity: <b>15%</b> · Inactivity: <b>19%</b><br>
+                    Poor diet: <b>31%</b><br>
+                    <i>Low obesity today despite unhealthy behaviors — a future risk group</i>
+                </div>
+            </div>
+        </div>
+    """)
+
+    # ── Policy Implications ───────────────────────────────────────────────
+    section("What This Means for Policy")
+    policy_items = [
+        ("Exercise campaigns alone will not reverse the obesity trend",
+         "Inactivity has not increased — but obesity has. The two are no longer moving together. "
+         "Structural factors beyond individual behavior must be addressed."),
+        ("Tackle inequality first",
+         "The biggest differences in obesity rates are between education and income groups — "
+         "not between age or sex groups. Policies that improve living conditions, food access, "
+         "and economic security for lower-income communities will have the largest impact."),
+        ("Invest in diet data collection",
+         "Diet quality showed stronger effects than physical activity but is only tracked in 3 of the "
+         "14 survey years. Annual dietary monitoring would dramatically improve our ability to "
+         "understand and respond to the obesity crisis."),
+        ("Target young adults now, before it's too late",
+         "Young adults have poor diets but low obesity — for now. Metabolic protection fades with age. "
+         "Reaching this group before unhealthy habits become entrenched is the most cost-effective "
+         "preventive opportunity."),
+    ]
+    for i, (title, body) in enumerate(policy_items, 1):
+        st.markdown(f"""
+        <div style='background:{SURFACE}; border:1px solid {BORDER}; border-radius:10px;
+                    padding:18px 22px; margin-bottom:10px;
+                    box-shadow:0 1px 3px rgba(0,0,0,0.04);'>
+            <div style='display:flex; gap:14px; align-items:flex-start;'>
+                <div style='background:{NAVY}; color:{WHITE}; font-size:13px; font-weight:800;
+                            width:28px; height:28px; border-radius:50%; display:flex;
+                            align-items:center; justify-content:center; flex-shrink:0;
+                            margin-top:2px;'>{i}</div>
+                <div>
+                    <div style='font-size:14px; font-weight:700; color:{TEXT}; margin-bottom:6px;'>{title}</div>
+                    <div style='font-size:13.5px; color:{SLATE}; line-height:1.7;'>{body}</div>
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # ── Caveats ───────────────────────────────────────────────────────────
+    section("Important Caveats")
+    st.markdown(f"""
+    <div class="eco-warning">
+        <div style='font-size:13px; font-weight:700; color:#92400E; margin-bottom:10px;
+                    text-transform:uppercase; letter-spacing:0.5px;'>⚠️ Keep These in Mind</div>
+        <div style='display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; font-size:13.5px;
+                    color:#78350F; line-height:1.7;'>
+            <div>📊 <b>Population-level data, not individual data.</b> A correlation between group inactivity
+            rates and group obesity rates does not mean that any particular inactive person will become
+            obese. Individual outcomes depend on many additional factors.</div>
+            <div>🗣️ <b>All data is self-reported.</b> People tend to under-report their weight and over-report
+            their activity levels. Actual obesity rates are likely higher than these figures suggest.</div>
+            <div>📅 <b>Diet data covers only 3 years.</b> All findings about diet should be treated as
+            directionally informative rather than definitive.</div>
+            <div>🔗 <b>Correlation is not causation.</b> This study cannot prove that inactivity or poor diet
+            cause obesity — only that they are statistically associated. Poverty, stress, and the food
+            environment may be driving all three simultaneously.</div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown(f"""
-    <div style='margin-top:12px; padding:12px 16px; background:#fff8e7;
-                border-left:4px solid {GOLD}; border-radius:6px; font-size:13px; color:#555;'>
-        ⚠️ <b>Ecological Fallacy Reminder:</b> All findings are population-level associations.
-        These results describe group-level trends and <i>cannot</i> be used to infer risk for
-        any individual person. Correlation at the ecological level does not imply the same
-        relationship holds within individuals.
-    </div>
-    """, unsafe_allow_html=True)
+    # ── Bottom Line ───────────────────────────────────────────────────────
+    section("The Bottom Line")
+    insight_card(
+        "Conclusion",
+        "More complex than simply moving less or eating worse",
+        "Americans are getting heavier — and the reasons are more complex than simply moving less "
+        "or eating worse. Both behaviors matter and both should be part of any health strategy. "
+        "But the data is clear that structural inequalities — in income, education, and access — "
+        "are driving obesity just as powerfully as individual choices. Lasting solutions require "
+        "policy action at the structural level alongside support for individual behavior change.",
+        "Full technical report available separately"
+    )
 
 # ════════════════════════════════════════════════════════════════════════════
 # PAGE: DATA PREPARATION & CONSTRAINTS
