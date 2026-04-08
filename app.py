@@ -833,7 +833,7 @@ elif "Data Preparation" in page:
 # ════════════════════════════════════════════════════════════════════════════
 # PAGE: EDA
 # ════════════════════════════════════════════════════════════════════════════
-elif "EDA" in page:
+elif "Exploratory" in page:
     hero(
         "Distributions · Trends · Correlations",
         "Exploratory Data Analysis",
