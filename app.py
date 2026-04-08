@@ -139,6 +139,7 @@ with st.sidebar:
 
     page = st.selectbox("Navigate", [
         "🏠  Overview",
+        "📄  Executive Summary",
         "🧹  Data Preparation & Constraints",
         "🔍  Exploratory Data Analysis",
         "📈  Regression Models",
@@ -245,6 +246,211 @@ if "Overview" in page:
         ]
     })
     st.dataframe(results, use_container_width=True, hide_index=True)
+
+# ════════════════════════════════════════════════════════════════════════════
+# PAGE: EXECUTIVE SUMMARY
+# ════════════════════════════════════════════════════════════════════════════
+elif "Executive Summary" in page:
+    st.markdown(f"""
+    <h1 style='margin-bottom:2px;'>Executive Summary</h1>
+    <p style='color:#555; font-size:15px; margin-top:0; margin-bottom:20px;'>
+        BRFSS Statistical Learning Pipeline · Ecological Analysis 2011–2024
+    </p>
+    """, unsafe_allow_html=True)
+
+    # ── Top KPIs ──────────────────────────────────────────────────────────
+    c1,c2,c3,c4,c5,c6 = st.columns(6)
+    with c1: st.markdown(kpi("Dataset", "CDC BRFSS", "2011–2024 · 14 years"), unsafe_allow_html=True)
+    with c2: st.markdown(kpi("Analysis", "Ecological", "Population-level %"), unsafe_allow_html=True)
+    with c3: st.markdown(kpi("Observations", "391 / 84", "Activity / Diet rows"), unsafe_allow_html=True)
+    with c4: st.markdown(kpi("Best Reg. R²", "0.237", "Ridge, combined model"), unsafe_allow_html=True)
+    with c5: st.markdown(kpi("Best CV Acc.", "70.3%", "Random Forest · Diet"), unsafe_allow_html=True)
+    with c6: st.markdown(kpi("Clusters", "k = 4", "Silhouette = 0.43"), unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Study Overview ────────────────────────────────────────────────────
+    section("Study Overview")
+    st.markdown(f"""
+    <div style='background:{WHITE}; border-radius:10px; padding:24px 28px;
+                box-shadow:0 2px 8px rgba(13,43,94,0.08); line-height:1.85; font-size:14px; color:#333;'>
+        <p>
+            This report presents a comprehensive statistical learning analysis of the
+            <b>CDC Behavioral Risk Factor Surveillance System (BRFSS)</b> spanning 2011–2024.
+            Using a five-stage pipeline of supervised and unsupervised machine learning methods,
+            we investigate whether national <b>physical activity levels</b> and <b>dietary habits</b>
+            can predict <b>obesity rates</b> across U.S. demographic groups.
+        </p>
+        <p>
+            A critical structural feature of this project is its <b>ecological framing</b>: every data
+            point is a population-level percentage — the share of adults in a given state, year,
+            and demographic group who meet a criterion — not an individual's personal record.
+            This produces 391 observations for the activity dataset (Inactive %) and 84 observations
+            for the diet dataset (PoorDiet %), reflecting the limited years in which diet survey
+            questions were fielded (2017, 2019, 2021). All findings must be interpreted with this
+            ecological fallacy caveat in mind: associations observed at the population level do not
+            necessarily hold for individuals.
+        </p>
+        <p>
+            The analysis is organized around <b>six structured research questions</b> covering
+            regression, classification, regularization (Ridge), cross-validation, and clustering,
+            forming an end-to-end machine learning workflow applicable to public health, insurance,
+            and policy domains.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Six Research Questions ────────────────────────────────────────────
+    section("Research Questions & Key Findings")
+    rq_data = [
+        ("RQ1", "📈", "Regression: Inactivity → Obesity",
+         "OLS · Model 1",
+         "Does the percentage of physically inactive adults predict obesity rates across demographic groups?",
+         "Yes — inactivity is a statistically significant predictor. β = 0.445 (p < 0.001), R² = 0.213. "
+         "For every 1 pp increase in inactivity, obesity rises by ~0.45 pp at the population level. "
+         "Moderate fit, reflecting real-world ecological complexity."),
+        ("RQ2", "🥗", "Regression: Diet → Obesity",
+         "OLS · Model 2",
+         "Does poor dietary behavior (low fruit & vegetable consumption) predict obesity rates?",
+         "Yes — PoorDiet has a larger per-unit effect than inactivity. β = 0.658 (p < 0.001), R² = 0.170. "
+         "However, diet data is limited to 3 survey years (2017, 2019, 2021), reducing power to n = 84."),
+        ("RQ3", "🔗", "Regression: Combined Model",
+         "Ridge · Model 3",
+         "Does combining inactivity and diet improve prediction over either alone?",
+         "Yes — the Ridge-regularized combined model achieves R² = 0.237 (CV R² = 0.161). "
+         "Ridge was chosen over OLS because the two predictors are collinear (VIF = 28.15), "
+         "causing OLS coefficient instability. Ridge shrinkage resolves this."),
+        ("RQ4", "🎯", "Classification: Activity Dataset",
+         "5-Fold CV · Dataset A (n=391)",
+         "Can demographic strata and inactivity rates be used to classify high vs. low obesity risk?",
+         "Random Forest achieves the best cross-validated accuracy: 67.8% (5-fold stratified CV). "
+         "Features: Inactive % + demographic stratification category. "
+         "Decision Tree and Logistic Regression also competitive; SVM lowest."),
+        ("RQ5", "🏆", "Classification: Diet Dataset",
+         "5-Fold CV · Dataset B (n=84)",
+         "Does adding poor diet as a feature improve classification of obesity risk groups?",
+         "Yes — adding PoorDiet lifts Random Forest CV accuracy to 70.3% (vs. 67.8% without). "
+         "This improvement is meaningful given the smaller sample (n=84) and confirms "
+         "diet's incremental predictive value beyond activity alone."),
+        ("RQ6", "🔵", "Clustering & PCA",
+         "K-Means · k=4 · PCA",
+         "Do natural behavioral clusters exist among U.S. demographic groups in the BRFSS data?",
+         "K-Means (k=4) reveals four clinically meaningful population subgroups with silhouette = 0.43: "
+         "(1) Low Obesity/Active, (2) High Obesity/Sedentary, (3) Moderate Risk, and (4) a "
+         "Young Adult Paradox cluster — low obesity despite high inactivity. "
+         "PCA confirms clear cluster separation in 2D space."),
+    ]
+
+    for rq_id, icon, title, badge, question, finding in rq_data:
+        st.markdown(f"""
+        <div style='background:{WHITE}; border-radius:10px; padding:20px 24px; margin-bottom:14px;
+                    box-shadow:0 2px 8px rgba(13,43,94,0.07); border-left:4px solid {NAVY};'>
+            <div style='display:flex; align-items:center; gap:10px; margin-bottom:8px;'>
+                <span style='background:{NAVY}; color:#fff; font-size:11px; font-weight:700;
+                             padding:3px 9px; border-radius:4px;'>{rq_id}</span>
+                <span style='font-size:18px;'>{icon}</span>
+                <span style='font-size:15px; font-weight:700; color:{NAVY};'>{title}</span>
+                <span style='margin-left:auto; background:rgba(13,43,94,0.08); color:{NAVY};
+                             font-size:11px; padding:3px 9px; border-radius:4px;'>{badge}</span>
+            </div>
+            <p style='font-size:13px; color:#666; margin:0 0 8px 0; font-style:italic;'>
+                ❓ {question}
+            </p>
+            <p style='font-size:13.5px; color:#333; margin:0; line-height:1.7;'>
+                ✅ {finding}
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Methodology Summary ───────────────────────────────────────────────
+    section("Methodology at a Glance")
+    m1, m2, m3 = st.columns(3)
+    method_style = f"background:{WHITE}; border-radius:10px; padding:18px 20px; " \
+                   f"box-shadow:0 2px 8px rgba(13,43,94,0.07); font-size:13px; " \
+                   f"color:#333; line-height:1.9; height:100%;"
+    with m1:
+        st.markdown(f"""
+        <div style='{method_style}'>
+            <div style='font-size:14px; font-weight:700; color:{NAVY}; margin-bottom:8px;'>
+                📥 Data & ETL
+            </div>
+            Source: CDC BRFSS 2011–2024<br>
+            Raw: 110,880 rows × 33 columns<br>
+            Filter: Sample_Size ≥ 50<br>
+            Kept: 7 core columns<br>
+            Aggregation: National weighted %<br>
+            PoorDiet = (LowFruit + LowVeg) / 2<br>
+            Final: 391 rows (Activity), 84 (Diet)
+        </div>
+        """, unsafe_allow_html=True)
+    with m2:
+        st.markdown(f"""
+        <div style='{method_style}'>
+            <div style='font-size:14px; font-weight:700; color:{NAVY}; margin-bottom:8px;'>
+                🤖 Models Applied
+            </div>
+            OLS Regression (Models 1 & 2)<br>
+            Ridge Regression (Model 3, α tuned)<br>
+            Logistic Regression<br>
+            Decision Tree<br>
+            Random Forest (best performer)<br>
+            Support Vector Machine<br>
+            K-Means Clustering + PCA
+        </div>
+        """, unsafe_allow_html=True)
+    with m3:
+        st.markdown(f"""
+        <div style='{method_style}'>
+            <div style='font-size:14px; font-weight:700; color:{NAVY}; margin-bottom:8px;'>
+                ✅ Validation Strategy
+            </div>
+            Regression: OLS diagnostics,<br>
+            &nbsp;&nbsp;VIF check, residual analysis<br>
+            Ridge: α selected via CV<br>
+            Classification: 5-fold<br>
+            &nbsp;&nbsp;StratifiedKFold CV<br>
+            Clustering: Elbow + silhouette<br>
+            Ecological fallacy noted throughout
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Overall Conclusion ────────────────────────────────────────────────
+    section("Overall Conclusion")
+    st.markdown(f"""
+    <div style='background:linear-gradient(135deg, {NAVY} 0%, #1a3d7a 100%);
+                border-radius:10px; padding:24px 28px; color:#fff; line-height:1.85; font-size:14px;'>
+        <p style='margin:0 0 12px 0;'>
+            Physical inactivity and poor diet are <b>statistically significant ecological predictors</b>
+            of population-level obesity rates in the United States. While regression R² values
+            (0.17–0.24) reflect the inherent complexity of predicting aggregate health outcomes,
+            classification models achieve meaningful accuracy (67–70% cross-validated), and
+            clustering reveals four distinct behavioral phenotypes with real-world public health relevance.
+        </p>
+        <p style='margin:0;'>
+            The <b>Young Adult Paradox</b> cluster — groups showing low obesity despite high inactivity —
+            is the most policy-relevant finding, suggesting that age and metabolic factors may buffer
+            the effects of sedentary behavior in younger populations, with risk likely emerging later
+            in life. Together, these findings support targeted, demographically-aware public health
+            interventions rather than one-size-fits-all approaches.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div style='margin-top:12px; padding:12px 16px; background:#fff8e7;
+                border-left:4px solid {GOLD}; border-radius:6px; font-size:13px; color:#555;'>
+        ⚠️ <b>Ecological Fallacy Reminder:</b> All findings are population-level associations.
+        These results describe group-level trends and <i>cannot</i> be used to infer risk for
+        any individual person. Correlation at the ecological level does not imply the same
+        relationship holds within individuals.
+    </div>
+    """, unsafe_allow_html=True)
 
 # ════════════════════════════════════════════════════════════════════════════
 # PAGE: DATA PREPARATION & CONSTRAINTS
