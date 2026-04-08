@@ -139,6 +139,7 @@ with st.sidebar:
 
     page = st.selectbox("Navigate", [
         "🏠  Overview",
+        "🧹  Data Preparation & Constraints",
         "🔍  Exploratory Data Analysis",
         "📈  Regression Models",
         "🎯  Classification",
@@ -244,6 +245,229 @@ if "Overview" in page:
         ]
     })
     st.dataframe(results, use_container_width=True, hide_index=True)
+
+# ════════════════════════════════════════════════════════════════════════════
+# PAGE: DATA PREPARATION & CONSTRAINTS
+# ════════════════════════════════════════════════════════════════════════════
+elif "Data Preparation" in page:
+    st.markdown(f"""
+    <h1 style='margin-bottom:4px;'>Data Preparation & Constraints</h1>
+    <p style='color:#555; font-size:15px; margin-top:0;'>
+        What the raw data looked like, what we kept, what we removed, and why — explained plainly.
+    </p>
+    """, unsafe_allow_html=True)
+
+    section("What We Started With")
+    c1, c2, c3, c4 = st.columns(4)
+    with c1: st.markdown(kpi("Raw Rows", "110,880", "before any cleaning"), unsafe_allow_html=True)
+    with c2: st.markdown(kpi("Raw Columns", "33", "most were redundant"), unsafe_allow_html=True)
+    with c3: st.markdown(kpi("Kept Columns", "7", "genuinely useful ones"), unsafe_allow_html=True)
+    with c4: st.markdown(kpi("Final Dataset", "391 rows", "national, activity only"), unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Step 1
+    section("Step 1 — Understanding the Raw Data")
+    st.markdown(f"""
+    <div style='background:{WHITE}; border-radius:10px; padding:22px;
+                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
+                color:#333; line-height:1.8;'>
+        The raw BRFSS file arrives with <b>110,880 rows and 33 columns</b> — but most of those
+        columns are either duplicates, codes that repeat information already in plain text,
+        or flags that only matter for rows we're going to remove anyway.<br><br>
+        After inspecting all 33 columns, we found only <b>7 carry real, non-redundant information</b>:
+        the survey year, the location, the topic class, the specific question, the percentage value,
+        the sample size, and the demographic group. Everything else was dropped.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    with col1:
+        section("❌ Columns Removed (26 of 33)")
+        removed = pd.DataFrame({
+            "Column": ["YearEnd", "LocationAbbr", "Datasource", "Topic", "Data_Value_Unit",
+                       "Data_Value_Type", "Data_Value_Alt", "Data_Value_Footnote",
+                       "Low/High Confidence Limit", "GeoLocation",
+                       "Age, Education, Sex, Income, Race/Ethnicity",
+                       "ClassID, TopicID, QuestionID, LocationID, etc."],
+            "Why Removed": [
+                "Always equals YearStart — adds nothing",
+                "Duplicate of the full location name",
+                "Every row says 'BRFSS' — constant",
+                "Duplicate of Class column",
+                "Every row says '%' — constant",
+                "Every row says 'Value' — constant",
+                "Numeric copy of the percentage column",
+                "Only present on rows we're removing anyway",
+                "Reliability handled by sample size filter",
+                "Not needed — we use location names",
+                "Same info captured in the Stratification column",
+                "Numeric codes duplicating text columns"
+            ]
+        })
+        st.dataframe(removed, use_container_width=True, hide_index=True)
+
+    with col2:
+        section("✅ Columns Kept (7 of 33)")
+        kept = pd.DataFrame({
+            "Column": ["YearStart", "LocationDesc", "Class", "Question",
+                       "Data_Value", "Sample_Size", "StratificationCategory1 + Stratification1"],
+            "What It Means": [
+                "The survey year (2011–2024)",
+                "Which state or territory",
+                "Obesity, Physical Activity, or Diet",
+                "The specific survey question asked",
+                "The percentage answer (e.g. 32.1% are obese)",
+                "How many people were surveyed for that estimate",
+                "The demographic group (e.g. Education → College graduate)"
+            ]
+        })
+        st.dataframe(kept, use_container_width=True, hide_index=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Step 2
+    section("Step 2 — Removing Unreliable Estimates")
+    st.markdown(f"""
+    <div style='background:{WHITE}; border-radius:10px; padding:22px;
+                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
+                color:#333; line-height:1.8;'>
+        Some rows in the dataset are based on very few survey respondents — fewer than 50 people.
+        A percentage calculated from 12 people is not a reliable population estimate.
+        We removed all rows where <b>Sample Size &lt; 50</b>, keeping only estimates
+        with enough respondents to be statistically meaningful.<br><br>
+        This is a standard data quality filter — not an arbitrary choice.
+        The confidence limits columns (which we also removed) existed specifically
+        to flag these low-reliability rows.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Step 3
+    section("Step 3 — The Three Separate Classes (A Critical Structural Constraint)")
+    st.markdown(f"""
+    <div style='background:{WHITE}; border-radius:10px; padding:22px;
+                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
+                color:#333; line-height:1.85;'>
+        This is the most important structural property of the dataset — and the one most likely
+        to be misunderstood.<br><br>
+        The BRFSS data contains <b>three separate topic classes</b>, each collected independently:
+    </div>
+    """, unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.markdown(f"""
+        <div style='background:{NAVY}; border-radius:10px; padding:18px; color:{WHITE}; text-align:center;'>
+            <div style='font-size:24px;'>⚖️</div>
+            <div style='font-size:15px; font-weight:800; color:{GOLD}; margin:8px 0;'>Obesity</div>
+            <div style='font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;'>
+                % of adults with obesity<br>
+                Available: 2011–2024<br>
+                <b style='color:{GOLD};'>391 national records</b>
+            </div>
+        </div>""", unsafe_allow_html=True)
+    with c2:
+        st.markdown(f"""
+        <div style='background:{NAVY}; border-radius:10px; padding:18px; color:{WHITE}; text-align:center;'>
+            <div style='font-size:24px;'>🏃</div>
+            <div style='font-size:15px; font-weight:800; color:{GOLD}; margin:8px 0;'>Physical Activity</div>
+            <div style='font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;'>
+                % of adults with no leisure<br>physical activity<br>
+                Available: 2011–2024<br>
+                <b style='color:{GOLD};'>391 national records</b>
+            </div>
+        </div>""", unsafe_allow_html=True)
+    with c3:
+        st.markdown(f"""
+        <div style='background:{NAVY}; border-radius:10px; padding:18px; color:{WHITE}; text-align:center;'>
+            <div style='font-size:24px;'>🥦</div>
+            <div style='font-size:15px; font-weight:800; color:{GOLD}; margin:8px 0;'>Diet</div>
+            <div style='font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;'>
+                % eating fruit &lt;1/day<br>% eating veg &lt;1/day<br>
+                Available: <b>2017, 2019, 2021 only</b><br>
+                <b style='color:{GOLD};'>84 national records</b>
+            </div>
+        </div>""", unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <br>
+    <div style='background:#FFF3CD; border-left:5px solid #FFC107; border-radius:0 8px 8px 0;
+                padding:16px 20px; font-size:14px; color:#444; line-height:1.8;'>
+        <b>⚠️ Important:</b> These three classes were surveyed <b>separately</b>, with potentially
+        different respondents contributing to each estimate within the same state and year.
+        We <b>cannot observe obesity, physical activity, and diet for the same individual</b>.
+        We can only compare population-level averages for the same location, year, and demographic group.<br><br>
+        This is why all findings in this study are <b>ecological</b> — they describe patterns
+        across population groups, not individuals. A state with high inactivity and high obesity
+        does not mean the inactive people <em>are</em> the obese people.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Step 4
+    section("Step 4 — Reshaping and Aggregating to National Level")
+    st.markdown(f"""
+    <div style='background:{WHITE}; border-radius:10px; padding:22px;
+                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
+                color:#333; line-height:1.85;'>
+        <b>Reshaping (Pivot):</b> The raw data has one row per question — so the same
+        state/year/group would have multiple rows for different questions. We reshaped it so
+        each combination of year + location + demographic group gets <b>one row</b>,
+        with each question as its own column. This is called a pivot.<br><br>
+        <b>National aggregation:</b> Rather than analyse all 55 states separately,
+        we aggregated to a <b>national weighted average</b> per year and demographic group.
+        States with more survey respondents count more in the average — this is called
+        weighting by sample size. This gives us one clean national estimate per
+        year × demographic group combination.<br><br>
+        <b>PoorDiet score:</b> We combined the two diet questions (% eating fruit &lt;1/day
+        and % eating vegetables &lt;1/day) into a single <b>PoorDiet score</b> by averaging
+        them — a higher score means worse diet quality.
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Final dataset summary
+    section("What We Ended Up With")
+    datasets = pd.DataFrame({
+        "Dataset": [
+            "Obesity (national)",
+            "Activity (national)",
+            "Diet (national)",
+            "Modeling dataset — Regression M1 & Classification A",
+            "Modeling dataset — Regression M2/M3 & Classification B",
+            "Clustering dataset"
+        ],
+        "Rows": [391, 391, 84, 391, 84, 391],
+        "Years": ["2011–2024", "2011–2024", "2017, 2019, 2021", "2011–2024", "2017, 2019, 2021", "2011–2024"],
+        "Key Variables": [
+            "Year, StratGroup, Obesity %",
+            "Year, StratGroup, Inactive %",
+            "Year, StratGroup, LowFruit %, LowVeg %, PoorDiet %",
+            "Obesity + Inactive (merged on Year × StratGroup)",
+            "Obesity + Inactive + PoorDiet (merged on Year × StratGroup)",
+            "Obesity + Inactive + PoorDiet (imputed where missing)"
+        ]
+    })
+    st.dataframe(datasets, use_container_width=True, hide_index=True)
+
+    st.markdown(f"""
+    <div class="finding-box" style="margin-top:16px;">
+        <div class="ftitle">💡 Why Diet Has So Few Rows</div>
+        <div class="fwinner">84 rows vs 391 — not a mistake</div>
+        <div class="fbody">
+            Fruit and vegetable consumption data was only collected at the Overall
+            (non-demographic) stratification level in 2017, 2019, and 2021.
+            This is a CDC data collection decision — not something we could fix.
+            It means any finding involving diet is based on 3 years of data only,
+            which is why we treat diet results more cautiously than activity results throughout the analysis.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ════════════════════════════════════════════════════════════════════════════
 # PAGE: EDA
