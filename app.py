@@ -15,72 +15,230 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-NAVY  = "#0D2B5E"
-GOLD  = "#C6A84B"
-LIGHT = "#F4F6FA"
-WHITE = "#FFFFFF"
-GREEN = "#2ECC71"
-RED   = "#E74C3C"
+# ── Design Tokens ────────────────────────────────────────────────────────────
+NAVY    = "#0F2D6F"   # primary navy
+GOLD    = "#C8992B"   # warm gold accent
+BG      = "#F7F8FC"   # app background
+SURFACE = "#FFFFFF"   # card surface
+BORDER  = "#E2E6F0"   # card border
+TEXT    = "#111827"   # primary text
+SLATE   = "#4B5563"   # secondary text
+MUTED   = "#9CA3AF"   # tertiary / labels
+WHITE   = "#FFFFFF"
+# Legacy aliases kept for inline references in page content
+LIGHT   = BG
+GREEN   = "#059669"
+RED     = "#DC2626"
 
 st.markdown(f"""
 <style>
-    .stApp {{ background-color: {LIGHT}; }}
-    section[data-testid="stSidebar"] {{ background-color: {NAVY}; }}
-    section[data-testid="stSidebar"] * {{ color: {WHITE} !important; }}
-    section[data-testid="stSidebar"] .stSelectbox label {{ color: {GOLD} !important; font-weight:700; }}
-    section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {{
-        background-color: rgba(255,255,255,0.15) !important;
-        border-color: rgba(255,255,255,0.3) !important;
-    }}
-    section[data-testid="stSidebar"] .stSelectbox span {{ color: {WHITE} !important; }}
-    section[data-testid="stSidebar"] .stSelectbox svg {{ fill: {WHITE} !important; }}
-    h1, h2, h3 {{ color: {NAVY}; }}
-    .kpi-card {{
-        background: {WHITE};
-        border-left: 5px solid {GOLD};
-        border-radius: 8px;
-        padding: 16px 20px;
-        box-shadow: 0 2px 8px rgba(13,43,94,0.08);
-        margin-bottom: 10px;
-    }}
-    .kpi-card .label {{ font-size:12px; color:#666; font-weight:700;
-        text-transform:uppercase; letter-spacing:0.5px; }}
-    .kpi-card .value {{ font-size:26px; font-weight:900; color:{NAVY}; margin-top:4px; }}
-    .kpi-card .sub {{ font-size:12px; color:#888; margin-top:3px; }}
-    .section-hdr {{
-        background: {NAVY}; color:{WHITE}; padding:10px 18px;
-        border-radius:6px; font-size:14px; font-weight:700;
-        margin-bottom:14px; letter-spacing:0.3px;
-    }}
-    .finding-box {{
-        background:{WHITE}; border-left:6px solid {NAVY};
-        border-radius:0 8px 8px 0; padding:16px 20px;
-        margin:12px 0; box-shadow:0 2px 6px rgba(13,43,94,0.07);
-    }}
-    .finding-box .ftitle {{ font-size:11px; font-weight:800; color:{GOLD};
-        text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }}
-    .finding-box .fwinner {{ font-size:20px; font-weight:900; color:{NAVY}; margin:4px 0; }}
-    .finding-box .fmetric {{ font-size:12px; color:#555; margin-top:3px; }}
-    .finding-box .fbody {{ font-size:13px; color:#333; line-height:1.65; margin-top:8px; }}
-    .implication {{
-        background:#FFF8E7; border:1px solid {GOLD};
-        border-radius:8px; padding:14px 18px; margin:10px 0;
-    }}
-    .implication .ititle {{ font-size:12px; font-weight:800; color:{NAVY};
-        text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; }}
-    .implication .ibody {{ font-size:13px; color:#444; line-height:1.65; }}
-    .insight-card {{
-        background: linear-gradient(135deg, {NAVY} 0%, #1a3f7a 100%);
-        border-radius:10px; padding:18px 22px; margin-bottom:12px;
-        box-shadow:0 3px 10px rgba(13,43,94,0.18);
-    }}
-    .insight-card .ic-tag {{ font-size:11px; font-weight:800; color:{GOLD};
-        text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }}
-    .insight-card .ic-title {{ font-size:15px; font-weight:800; color:{WHITE}; margin-bottom:8px; }}
-    .insight-card .ic-body {{ font-size:13px; color:rgba(255,255,255,0.85); line-height:1.6; }}
-    .insight-card .ic-stat {{ display:inline-block; background:{GOLD}; color:{NAVY};
-        font-weight:900; font-size:12px; padding:3px 10px;
-        border-radius:20px; margin-top:10px; }}
+/* ═══════════════════════════════════════════════════════════════════
+   BRFSS DASHBOARD — PREMIUM ANALYTICS DESIGN SYSTEM
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Base ── */
+.stApp {{ background: {BG}; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }}
+.block-container {{ padding-top: 28px; padding-bottom: 48px; max-width: 1200px; }}
+#MainMenu, footer {{ visibility: hidden; }}
+
+/* ── Sidebar ── */
+section[data-testid="stSidebar"] {{
+    background: #0A2558;
+    border-right: 1px solid rgba(255,255,255,0.06);
+}}
+section[data-testid="stSidebar"] * {{ color: {WHITE} !important; }}
+section[data-testid="stSidebar"] .stSelectbox label {{
+    color: {GOLD} !important; font-size: 10px !important;
+    font-weight: 700 !important; text-transform: uppercase; letter-spacing: 1px;
+}}
+section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {{
+    background: rgba(255,255,255,0.1) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    border-radius: 8px !important;
+}}
+section[data-testid="stSidebar"] .stSelectbox span {{ color: {WHITE} !important; }}
+section[data-testid="stSidebar"] .stSelectbox svg {{ fill: {WHITE} !important; }}
+
+/* ── Typography ── */
+h1 {{ color: {TEXT}; font-size: 30px; font-weight: 800; letter-spacing: -0.6px; }}
+h2 {{ color: {TEXT}; font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }}
+h3 {{ color: {TEXT}; font-size: 16px; font-weight: 600; }}
+
+/* ── Page Hero ── */
+.page-hero {{
+    padding: 6px 0 26px 0;
+    border-bottom: 1px solid {BORDER};
+    margin-bottom: 30px;
+}}
+.page-hero-eye {{
+    font-size: 11px; font-weight: 700; color: {GOLD};
+    text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
+}}
+.page-hero-title {{
+    font-size: 32px; font-weight: 800; color: {TEXT};
+    letter-spacing: -0.8px; margin: 0 0 10px 0; line-height: 1.15;
+}}
+.page-hero-sub {{
+    font-size: 15px; color: {SLATE}; margin: 0; line-height: 1.65; max-width: 720px;
+}}
+
+/* ── Section Labels (lightweight, replaces heavy navy bars) ── */
+.section-label {{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: {MUTED};
+    margin: 30px 0 14px 0;
+}}
+.section-label::after {{
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: {BORDER};
+}}
+
+/* ── KPI Cards ── */
+.kpi-card {{
+    background: {SURFACE};
+    border: 1px solid {BORDER};
+    border-top: 3px solid {GOLD};
+    border-radius: 10px;
+    padding: 18px 20px 15px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 14px rgba(15,45,111,0.05);
+    margin-bottom: 8px;
+}}
+.kpi-card .label {{
+    font-size: 10px; color: {MUTED}; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.9px;
+}}
+.kpi-card .value {{
+    font-size: 26px; font-weight: 800; color: {TEXT};
+    margin-top: 8px; letter-spacing: -0.5px; line-height: 1.15;
+}}
+.kpi-card .sub {{ font-size: 12px; color: {SLATE}; margin-top: 6px; }}
+
+/* ── Content Card (generic container) ── */
+.card {{
+    background: {SURFACE};
+    border: 1px solid {BORDER};
+    border-radius: 12px;
+    padding: 22px 26px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 14px rgba(15,45,111,0.05);
+    margin-bottom: 14px;
+    font-size: 14px;
+    color: #374151;
+    line-height: 1.8;
+}}
+
+/* ── Finding / Result Boxes ── */
+.finding-box {{
+    background: {SURFACE};
+    border: 1px solid {BORDER};
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 12px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 14px rgba(15,45,111,0.05);
+    position: relative;
+    overflow: hidden;
+}}
+.finding-box::before {{
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, {NAVY} 0%, {GOLD} 100%);
+}}
+.finding-box .ftitle {{
+    font-size: 10px; font-weight: 700; color: {MUTED};
+    text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 8px;
+}}
+.finding-box .fwinner {{
+    font-size: 21px; font-weight: 800; color: {TEXT};
+    margin: 4px 0; letter-spacing: -0.3px;
+}}
+.finding-box .fmetric {{
+    display: inline-block; font-size: 12px; font-weight: 600; color: {NAVY};
+    background: rgba(15,45,111,0.08); padding: 3px 11px; border-radius: 20px; margin-top: 6px;
+}}
+.finding-box .fbody {{
+    font-size: 13.5px; color: {SLATE}; line-height: 1.75; margin-top: 12px;
+    border-top: 1px solid #F3F4F6; padding-top: 12px;
+}}
+
+/* ── Implication / Amber Note Boxes ── */
+.implication {{
+    background: #FFFBEB; border: 1px solid #FCD34D;
+    border-radius: 10px; padding: 16px 20px; margin: 12px 0;
+}}
+.implication .ititle {{
+    font-size: 11px; font-weight: 700; color: #92400E;
+    text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;
+}}
+.implication .ibody {{ font-size: 13.5px; color: #78350F; line-height: 1.75; }}
+
+/* ── Insight Cards (dark, for highlights / conclusions) ── */
+.insight-card {{
+    background: {NAVY};
+    border-radius: 12px; padding: 22px 24px; margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,0.07);
+}}
+.insight-card .ic-tag {{
+    font-size: 10px; font-weight: 700; color: {GOLD};
+    text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 8px;
+}}
+.insight-card .ic-title {{
+    font-size: 16px; font-weight: 700; color: {WHITE};
+    margin-bottom: 10px; letter-spacing: -0.2px;
+}}
+.insight-card .ic-body {{ font-size: 13.5px; color: rgba(255,255,255,0.78); line-height: 1.75; }}
+.insight-card .ic-stat {{
+    display: inline-block;
+    background: rgba(200,153,43,0.18); color: {GOLD};
+    font-weight: 700; font-size: 13px; padding: 4px 12px;
+    border-radius: 20px; margin-top: 12px;
+    border: 1px solid rgba(200,153,43,0.35);
+}}
+
+/* ── Behavioral Class Cards (Obesity / Activity / Diet) ── */
+.class-card {{
+    background: {SURFACE}; border: 1px solid {BORDER};
+    border-radius: 12px; padding: 24px 18px; text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(15,45,111,0.05);
+}}
+.class-card .cc-icon {{ font-size: 30px; margin-bottom: 12px; }}
+.class-card .cc-title {{ font-size: 15px; font-weight: 700; color: {TEXT}; margin-bottom: 8px; }}
+.class-card .cc-body {{ font-size: 13px; color: {SLATE}; line-height: 1.75; }}
+.class-card .cc-stat {{
+    display: inline-block; margin-top: 12px;
+    font-size: 12px; font-weight: 700; color: {NAVY};
+    background: rgba(15,45,111,0.08);
+    padding: 4px 14px; border-radius: 20px;
+    border: 1px solid rgba(15,45,111,0.15);
+}}
+
+/* ── Ecological Warning ── */
+.eco-warning {{
+    background: #FFFBEB; border: 1px solid #FCD34D;
+    border-radius: 10px; padding: 16px 20px; margin: 16px 0;
+    font-size: 14px; color: #78350F; line-height: 1.8;
+}}
+
+/* ── Research Question Cards ── */
+.rq-card {{
+    background: {SURFACE};
+    border: 1px solid {BORDER};
+    border-left: 4px solid {NAVY};
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(15,45,111,0.04);
+}}
+
+/* ── Dataframe wrapper ── */
+.stDataFrame {{ border-radius: 10px !important; }}
+[data-testid="stDataFrame"] > div {{ border-radius: 10px !important; border: 1px solid {BORDER} !important; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -88,37 +246,61 @@ st.markdown(f"""
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 def img(path, caption=None, width=None):
+    """Load a real chart PNG from the pipeline outputs folder."""
     full = os.path.join(BASE, path)
     if os.path.exists(full):
         st.image(full, caption=caption, use_column_width=(width is None))
     else:
-        st.warning(f"Chart not found: {path} — run the pipeline scripts to generate outputs.")
+        st.markdown(
+            f"<div style='background:#FEF2F2; border:1px solid #FECACA; border-radius:8px; "
+            f"padding:12px 16px; font-size:13px; color:#991B1B;'>"
+            f"⚠️ Chart not found: <code>{path}</code> — run the pipeline scripts to generate outputs.</div>",
+            unsafe_allow_html=True
+        )
+
+def hero(eyebrow, title, subtitle):
+    """Page hero header with eyebrow, title and subtitle."""
+    st.markdown(f"""
+    <div class="page-hero">
+        <div class="page-hero-eye">{eyebrow}</div>
+        <div class="page-hero-title">{title}</div>
+        <div class="page-hero-sub">{subtitle}</div>
+    </div>""", unsafe_allow_html=True)
 
 def section(title):
-    st.markdown(f'<div class="section-hdr">{title}</div>', unsafe_allow_html=True)
+    """Lightweight section label with horizontal rule — replaces heavy navy bars."""
+    st.markdown(f'<div class="section-label">{title}</div>', unsafe_allow_html=True)
 
 def kpi(label, value, sub=""):
+    """KPI metric card with gold top border."""
     return f"""<div class="kpi-card">
         <div class="label">{label}</div>
         <div class="value">{value}</div>
         <div class="sub">{sub}</div>
     </div>"""
 
+def card(html):
+    """Generic white content card."""
+    st.markdown(f'<div class="card">{html}</div>', unsafe_allow_html=True)
+
 def finding(tag, winner, metric, body):
+    """Result card with gradient top accent, winner name, metric pill, and body text."""
     st.markdown(f"""<div class="finding-box">
-        <div class="ftitle">🏆 {tag}</div>
+        <div class="ftitle">{tag}</div>
         <div class="fwinner">{winner}</div>
         <div class="fmetric">{metric}</div>
         <div class="fbody">{body}</div>
     </div>""", unsafe_allow_html=True)
 
 def implication(title, body):
+    """Amber note/implication box."""
     st.markdown(f"""<div class="implication">
         <div class="ititle">{title}</div>
         <div class="ibody">{body}</div>
     </div>""", unsafe_allow_html=True)
 
 def insight_card(tag, title, body, stat):
+    """Dark navy insight highlight card."""
     st.markdown(f"""<div class="insight-card">
         <div class="ic-tag">{tag}</div>
         <div class="ic-title">{title}</div>
@@ -126,15 +308,30 @@ def insight_card(tag, title, body, stat):
         <div class="ic-stat">{stat}</div>
     </div>""", unsafe_allow_html=True)
 
+def class_card(icon, title, body, stat):
+    """Light card for Obesity / Activity / Diet behavioral class."""
+    st.markdown(f"""<div class="class-card">
+        <div class="cc-icon">{icon}</div>
+        <div class="cc-title">{title}</div>
+        <div class="cc-body">{body}</div>
+        <div class="cc-stat">{stat}</div>
+    </div>""", unsafe_allow_html=True)
+
 # ── Sidebar ──────────────────────────────────────────────────────────────────
 with st.sidebar:
+    # Brand header
     st.markdown(f"""
-    <div style='text-align:center; padding:16px 0 8px 0;'>
-        <div style='font-size:30px;'>📊</div>
-        <div style='font-size:16px; font-weight:800; color:{GOLD}; margin-top:4px;'>BRFSS Analysis</div>
-        <div style='font-size:11px; color:#aaa; margin-top:3px;'>Statistical Learning · 2011–2024</div>
+    <div style='padding:20px 4px 16px 4px;'>
+        <div style='font-size:11px; font-weight:700; color:{GOLD}; text-transform:uppercase;
+                    letter-spacing:1.4px; margin-bottom:6px;'>CDC BRFSS · 2011–2024</div>
+        <div style='font-size:18px; font-weight:800; color:#FFFFFF; line-height:1.25;'>
+            Statistical Learning<br>Analysis
+        </div>
+        <div style='font-size:11px; color:rgba(255,255,255,0.45); margin-top:6px;'>
+            Ecological · Population-Level
+        </div>
     </div>
-    <hr style='border-color:rgba(255,255,255,0.15); margin:8px 0 16px 0;'>
+    <div style='height:1px; background:rgba(255,255,255,0.1); margin:0 0 18px 0;'></div>
     """, unsafe_allow_html=True)
 
     page = st.selectbox("Navigate", [
@@ -148,22 +345,37 @@ with st.sidebar:
         "📋  Findings & Conclusions",
     ])
 
+    # Key stats chips
     st.markdown(f"""
-    <hr style='border-color:rgba(255,255,255,0.15); margin:16px 0;'>
-    <div style='font-size:11px; color:#aaa; line-height:1.8;'>
-        <b style='color:{GOLD};'>Dataset</b><br>
-        CDC BRFSS 2011–2024<br>
-        55 U.S. locations<br>
-        110,880 raw rows<br>
-        Population-level %<br><br>
-        <b style='color:{GOLD};'>Methods</b><br>
+    <div style='height:1px; background:rgba(255,255,255,0.1); margin:18px 0 14px 0;'></div>
+    <div style='font-size:10px; font-weight:700; color:{GOLD}; text-transform:uppercase;
+                letter-spacing:1px; margin-bottom:10px;'>Key Numbers</div>
+    <div style='display:flex; flex-wrap:wrap; gap:6px;'>
+        <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+                     border-radius:20px; padding:4px 10px; font-size:11px; color:#fff;'>391 obs.</span>
+        <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+                     border-radius:20px; padding:4px 10px; font-size:11px; color:#fff;'>14 years</span>
+        <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+                     border-radius:20px; padding:4px 10px; font-size:11px; color:#fff;'>R²=0.237</span>
+        <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+                     border-radius:20px; padding:4px 10px; font-size:11px; color:#fff;'>70.3% CV</span>
+        <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+                     border-radius:20px; padding:4px 10px; font-size:11px; color:#fff;'>k=4 clusters</span>
+    </div>
+    <div style='height:1px; background:rgba(255,255,255,0.1); margin:18px 0 14px 0;'></div>
+    <div style='font-size:10px; font-weight:700; color:{GOLD}; text-transform:uppercase;
+                letter-spacing:1px; margin-bottom:8px;'>Methods</div>
+    <div style='font-size:12px; color:rgba(255,255,255,0.65); line-height:2;'>
         OLS · Ridge Regression<br>
         Logistic · Decision Tree<br>
         Random Forest · SVM<br>
-        K-Means · PCA<br><br>
-        <b style='color:{GOLD};'>Author</b><br>
-        Chris Rodrigues<br>
-        Illinois Tech · MAS DS
+        K-Means · PCA
+    </div>
+    <div style='height:1px; background:rgba(255,255,255,0.1); margin:18px 0 14px 0;'></div>
+    <div style='font-size:11px; color:rgba(255,255,255,0.5); line-height:1.8;'>
+        <span style='color:#fff; font-weight:600;'>Chris Rodrigues</span><br>
+        MAS Data Science<br>
+        Illinois Institute of Technology
     </div>
     """, unsafe_allow_html=True)
 
@@ -171,13 +383,11 @@ with st.sidebar:
 # PAGE: OVERVIEW
 # ════════════════════════════════════════════════════════════════════════════
 if "Overview" in page:
-    st.markdown(f"""
-    <h1 style='margin-bottom:4px;'>BRFSS Statistical Learning Analysis</h1>
-    <p style='color:#555; font-size:15px; margin-top:0;'>
-        Can national physical activity levels and dietary habits predict obesity rates
-        across U.S. demographic groups from 2011 to 2024?
-    </p>
-    """, unsafe_allow_html=True)
+    hero(
+        "CDC BRFSS · 2011–2024 · Ecological Analysis",
+        "BRFSS Statistical Learning Analysis",
+        "Can national physical activity levels and dietary habits predict obesity rates across U.S. demographic groups from 2011 to 2024?"
+    )
 
     c1,c2,c3,c4,c5,c6 = st.columns(6)
     with c1: st.markdown(kpi("Raw Rows", "110,880", "before cleaning"), unsafe_allow_html=True)
@@ -187,41 +397,33 @@ if "Overview" in page:
     with c5: st.markdown(kpi("Best CV Acc.", "70.3%", "Random Forest, Dataset B"), unsafe_allow_html=True)
     with c6: st.markdown(kpi("Clusters", "k = 4", "silhouette = 0.43"), unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
     section("Study Design")
     col1, col2 = st.columns([3, 2])
     with col1:
-        st.markdown(f"""
-        <div style='background:{WHITE}; border-radius:10px; padding:22px;
-                    box-shadow:0 2px 8px rgba(13,43,94,0.08);'>
-            <div style='font-size:14px; color:#333; line-height:1.8;'>
-                <b style='color:{NAVY};'>Unit of analysis:</b> Every value is a population-level
-                percentage — the proportion of adults in a given state, year, and demographic group
-                who meet a criterion. This is an <b>ecological analysis</b>, not individual-level data.<br><br>
-                <b style='color:{NAVY};'>Three behavioral classes:</b><br>
-                &nbsp;&nbsp;• <b>Obesity</b> — % adults with obesity (2011–2024)<br>
-                &nbsp;&nbsp;• <b>Inactive</b> — % adults with no leisure-time physical activity (2011–2024)<br>
-                &nbsp;&nbsp;• <b>PoorDiet</b> — avg of % eating fruit &lt;1/day and veg &lt;1/day (2017, 2019, 2021 only)<br><br>
-                <b style='color:{NAVY};'>Stratification:</b> Each location × year is broken down by
-                Age, Sex, Income, Education, Race/Ethnicity, and Total — giving 391 national
-                observations for activity and 84 for diet (limited diet survey years).
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        card(f"""
+            <b style='color:{NAVY};'>Unit of analysis:</b> Every value is a population-level
+            percentage — the proportion of adults in a given state, year, and demographic group
+            who meet a criterion. This is an <b>ecological analysis</b>, not individual-level data.<br><br>
+            <b style='color:{NAVY};'>Three behavioral classes:</b><br>
+            &nbsp;&nbsp;• <b>Obesity</b> — % adults with obesity (2011–2024)<br>
+            &nbsp;&nbsp;• <b>Inactive</b> — % adults with no leisure-time physical activity (2011–2024)<br>
+            &nbsp;&nbsp;• <b>PoorDiet</b> — avg of % eating fruit &lt;1/day and veg &lt;1/day (2017, 2019, 2021 only)<br><br>
+            <b style='color:{NAVY};'>Stratification:</b> Each location × year is broken down by
+            Age, Sex, Income, Education, Race/Ethnicity, and Total — giving 391 national
+            observations for activity and 84 for diet (limited diet survey years).
+        """)
     with col2:
         section("Pipeline")
-        st.markdown(f"""
-        <div style='background:{WHITE}; border-radius:10px; padding:18px;
-                    box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:13px;
-                    color:#333; line-height:2;'>
+        card(f"""
+            <div style='font-size:13px; line-height:2.1;'>
             <b style='color:{GOLD};'>1.</b> brfss_clean.py &nbsp;→&nbsp; ETL pipeline<br>
             <b style='color:{GOLD};'>2.</b> brfss_eda.py &nbsp;&nbsp;&nbsp;→&nbsp; EDA & correlations<br>
             <b style='color:{GOLD};'>3.</b> brfss_model.py &nbsp;→&nbsp; OLS + Ridge regression<br>
             <b style='color:{GOLD};'>4.</b> brfss_classify.py → Classification<br>
             <b style='color:{GOLD};'>5.</b> brfss_cluster.py → K-Means + PCA<br>
             <b style='color:{GOLD};'>6.</b> app.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→&nbsp; This dashboard
-        </div>
-        """, unsafe_allow_html=True)
+            </div>
+        """)
 
     st.markdown("<br>", unsafe_allow_html=True)
     section("Model Results Summary")
@@ -251,12 +453,11 @@ if "Overview" in page:
 # PAGE: EXECUTIVE SUMMARY
 # ════════════════════════════════════════════════════════════════════════════
 elif "Executive Summary" in page:
-    st.markdown(f"""
-    <h1 style='margin-bottom:2px;'>Executive Summary</h1>
-    <p style='color:#555; font-size:15px; margin-top:0; margin-bottom:20px;'>
-        BRFSS Statistical Learning Pipeline · Ecological Analysis 2011–2024
-    </p>
-    """, unsafe_allow_html=True)
+    hero(
+        "Research Overview · Six Research Questions",
+        "Executive Summary",
+        "A comprehensive statistical learning pipeline examining how behavioral risk factors predict population-level obesity across U.S. demographic groups."
+    )
 
     # ── Top KPIs ──────────────────────────────────────────────────────────
     c1,c2,c3,c4,c5,c6 = st.columns(6)
@@ -271,17 +472,15 @@ elif "Executive Summary" in page:
 
     # ── Study Overview ────────────────────────────────────────────────────
     section("Study Overview")
-    st.markdown(f"""
-    <div style='background:{WHITE}; border-radius:10px; padding:24px 28px;
-                box-shadow:0 2px 8px rgba(13,43,94,0.08); line-height:1.85; font-size:14px; color:#333;'>
-        <p>
+    card("""
+        <p style='margin:0 0 14px 0;'>
             This report presents a comprehensive statistical learning analysis of the
             <b>CDC Behavioral Risk Factor Surveillance System (BRFSS)</b> spanning 2011–2024.
             Using a five-stage pipeline of supervised and unsupervised machine learning methods,
             we investigate whether national <b>physical activity levels</b> and <b>dietary habits</b>
             can predict <b>obesity rates</b> across U.S. demographic groups.
         </p>
-        <p>
+        <p style='margin:0 0 14px 0;'>
             A critical structural feature of this project is its <b>ecological framing</b>: every data
             point is a population-level percentage — the share of adults in a given state, year,
             and demographic group who meet a criterion — not an individual's personal record.
@@ -291,14 +490,13 @@ elif "Executive Summary" in page:
             ecological fallacy caveat in mind: associations observed at the population level do not
             necessarily hold for individuals.
         </p>
-        <p>
+        <p style='margin:0;'>
             The analysis is organized around <b>six structured research questions</b> covering
             regression, classification, regularization (Ridge), cross-validation, and clustering,
             forming an end-to-end machine learning workflow applicable to public health, insurance,
             and policy domains.
         </p>
-    </div>
-    """, unsafe_allow_html=True)
+    """)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -343,23 +541,22 @@ elif "Executive Summary" in page:
          "PCA confirms clear cluster separation in 2D space."),
     ]
 
-    for rq_id, icon, title, badge, question, finding in rq_data:
+    for rq_id, icon, title, badge, question, rq_finding in rq_data:
         st.markdown(f"""
-        <div style='background:{WHITE}; border-radius:10px; padding:20px 24px; margin-bottom:14px;
-                    box-shadow:0 2px 8px rgba(13,43,94,0.07); border-left:4px solid {NAVY};'>
-            <div style='display:flex; align-items:center; gap:10px; margin-bottom:8px;'>
-                <span style='background:{NAVY}; color:#fff; font-size:11px; font-weight:700;
-                             padding:3px 9px; border-radius:4px;'>{rq_id}</span>
-                <span style='font-size:18px;'>{icon}</span>
-                <span style='font-size:15px; font-weight:700; color:{NAVY};'>{title}</span>
-                <span style='margin-left:auto; background:rgba(13,43,94,0.08); color:{NAVY};
-                             font-size:11px; padding:3px 9px; border-radius:4px;'>{badge}</span>
+        <div class="rq-card">
+            <div style='display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;'>
+                <span style='background:{NAVY}; color:#fff; font-size:10px; font-weight:700;
+                             padding:3px 10px; border-radius:4px; letter-spacing:0.5px;'>{rq_id}</span>
+                <span style='font-size:17px;'>{icon}</span>
+                <span style='font-size:14px; font-weight:700; color:{TEXT};'>{title}</span>
+                <span style='margin-left:auto; background:{BG}; color:{SLATE}; border:1px solid {BORDER};
+                             font-size:11px; padding:3px 10px; border-radius:20px;'>{badge}</span>
             </div>
-            <p style='font-size:13px; color:#666; margin:0 0 8px 0; font-style:italic;'>
-                ❓ {question}
+            <p style='font-size:13px; color:{MUTED}; margin:0 0 8px 0; font-style:italic; line-height:1.6;'>
+                {question}
             </p>
-            <p style='font-size:13.5px; color:#333; margin:0; line-height:1.7;'>
-                ✅ {finding}
+            <p style='font-size:13.5px; color:{SLATE}; margin:0; line-height:1.75;'>
+                ✅ {rq_finding}
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -456,12 +653,11 @@ elif "Executive Summary" in page:
 # PAGE: DATA PREPARATION & CONSTRAINTS
 # ════════════════════════════════════════════════════════════════════════════
 elif "Data Preparation" in page:
-    st.markdown(f"""
-    <h1 style='margin-bottom:4px;'>Data Preparation & Constraints</h1>
-    <p style='color:#555; font-size:15px; margin-top:0;'>
-        What the raw data looked like, what we kept, what we removed, and why — explained plainly.
-    </p>
-    """, unsafe_allow_html=True)
+    hero(
+        "ETL Pipeline · 4-Step Process",
+        "Data Preparation & Constraints",
+        "What the raw data looked like, what we kept, what we removed, and why — explained plainly."
+    )
 
     section("What We Started With")
     c1, c2, c3, c4 = st.columns(4)
@@ -535,10 +731,7 @@ elif "Data Preparation" in page:
 
     # Step 2
     section("Step 2 — Removing Unreliable Estimates")
-    st.markdown(f"""
-    <div style='background:{WHITE}; border-radius:10px; padding:22px;
-                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
-                color:#333; line-height:1.8;'>
+    card("""
         Some rows in the dataset are based on very few survey respondents — fewer than 50 people.
         A percentage calculated from 12 people is not a reliable population estimate.
         We removed all rows where <b>Sample Size &lt; 50</b>, keeping only estimates
@@ -546,62 +739,32 @@ elif "Data Preparation" in page:
         This is a standard data quality filter — not an arbitrary choice.
         The confidence limits columns (which we also removed) existed specifically
         to flag these low-reliability rows.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
+    """)
 
     # Step 3
     section("Step 3 — The Three Separate Classes (A Critical Structural Constraint)")
-    st.markdown(f"""
-    <div style='background:{WHITE}; border-radius:10px; padding:22px;
-                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
-                color:#333; line-height:1.85;'>
+    card("""
         This is the most important structural property of the dataset — and the one most likely
         to be misunderstood.<br><br>
         The BRFSS data contains <b>three separate topic classes</b>, each collected independently:
-    </div>
-    """, unsafe_allow_html=True)
+    """)
 
     c1, c2, c3 = st.columns(3)
     with c1:
-        st.markdown(f"""
-        <div style='background:{NAVY}; border-radius:10px; padding:18px; color:{WHITE}; text-align:center;'>
-            <div style='font-size:24px;'>⚖️</div>
-            <div style='font-size:15px; font-weight:800; color:{GOLD}; margin:8px 0;'>Obesity</div>
-            <div style='font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;'>
-                % of adults with obesity<br>
-                Available: 2011–2024<br>
-                <b style='color:{GOLD};'>391 national records</b>
-            </div>
-        </div>""", unsafe_allow_html=True)
+        class_card("⚖️", "Obesity",
+                   "% of adults classified with obesity<br>Available: 2011–2024, all demographics",
+                   "391 national records")
     with c2:
-        st.markdown(f"""
-        <div style='background:{NAVY}; border-radius:10px; padding:18px; color:{WHITE}; text-align:center;'>
-            <div style='font-size:24px;'>🏃</div>
-            <div style='font-size:15px; font-weight:800; color:{GOLD}; margin:8px 0;'>Physical Activity</div>
-            <div style='font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;'>
-                % of adults with no leisure<br>physical activity<br>
-                Available: 2011–2024<br>
-                <b style='color:{GOLD};'>391 national records</b>
-            </div>
-        </div>""", unsafe_allow_html=True)
+        class_card("🏃", "Physical Activity",
+                   "% of adults with no leisure-time physical activity<br>Available: 2011–2024",
+                   "391 national records")
     with c3:
-        st.markdown(f"""
-        <div style='background:{NAVY}; border-radius:10px; padding:18px; color:{WHITE}; text-align:center;'>
-            <div style='font-size:24px;'>🥦</div>
-            <div style='font-size:15px; font-weight:800; color:{GOLD}; margin:8px 0;'>Diet</div>
-            <div style='font-size:12px; color:rgba(255,255,255,0.8); line-height:1.6;'>
-                % eating fruit &lt;1/day<br>% eating veg &lt;1/day<br>
-                Available: <b>2017, 2019, 2021 only</b><br>
-                <b style='color:{GOLD};'>84 national records</b>
-            </div>
-        </div>""", unsafe_allow_html=True)
+        class_card("🥦", "Diet",
+                   "% eating fruit &lt;1/day + % eating veg &lt;1/day<br>Available: 2017, 2019, 2021 only",
+                   "84 national records")
 
-    st.markdown(f"""
-    <br>
-    <div style='background:#FFF3CD; border-left:5px solid #FFC107; border-radius:0 8px 8px 0;
-                padding:16px 20px; font-size:14px; color:#444; line-height:1.8;'>
+    st.markdown("""
+    <div class="eco-warning">
         <b>⚠️ Important:</b> These three classes were surveyed <b>separately</b>, with potentially
         different respondents contributing to each estimate within the same state and year.
         We <b>cannot observe obesity, physical activity, and diet for the same individual</b>.
@@ -612,14 +775,9 @@ elif "Data Preparation" in page:
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-
     # Step 4
     section("Step 4 — Reshaping and Aggregating to National Level")
-    st.markdown(f"""
-    <div style='background:{WHITE}; border-radius:10px; padding:22px;
-                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size:14px;
-                color:#333; line-height:1.85;'>
+    card("""
         <b>Reshaping (Pivot):</b> The raw data has one row per question — so the same
         state/year/group would have multiple rows for different questions. We reshaped it so
         each combination of year + location + demographic group gets <b>one row</b>,
@@ -632,10 +790,7 @@ elif "Data Preparation" in page:
         <b>PoorDiet score:</b> We combined the two diet questions (% eating fruit &lt;1/day
         and % eating vegetables &lt;1/day) into a single <b>PoorDiet score</b> by averaging
         them — a higher score means worse diet quality.
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("<br>", unsafe_allow_html=True)
+    """)
 
     # Final dataset summary
     section("What We Ended Up With")
@@ -679,8 +834,11 @@ elif "Data Preparation" in page:
 # PAGE: EDA
 # ════════════════════════════════════════════════════════════════════════════
 elif "EDA" in page:
-    st.markdown("<h1>Exploratory Data Analysis</h1>", unsafe_allow_html=True)
-    st.markdown("*Distributions, trends, demographic breakdowns, and cross-indicator correlations.*")
+    hero(
+        "Distributions · Trends · Correlations",
+        "Exploratory Data Analysis",
+        "Distributions, trends across 14 years, demographic breakdowns, and cross-indicator correlations — before any modeling."
+    )
 
     tab1, tab2, tab3, tab4 = st.tabs(["🏋️ Obesity", "🚶 Physical Activity", "🥦 Diet", "🔗 Combined"])
 
@@ -785,8 +943,11 @@ elif "EDA" in page:
 # PAGE: REGRESSION
 # ════════════════════════════════════════════════════════════════════════════
 elif "Regression" in page:
-    st.markdown("<h1>Regression Models</h1>", unsafe_allow_html=True)
-    st.markdown("*Three models predicting obesity rates from behavioral indicators.*")
+    hero(
+        "OLS · Ridge · VIF-Corrected · 3 Models",
+        "Regression Models",
+        "Three models predicting population-level obesity rates from physical activity and dietary behavior."
+    )
 
     tab1, tab2, tab3 = st.tabs(["Model 1 — Inactive", "Model 2 — PoorDiet", "Model 3 — Ridge Combined"])
 
@@ -869,8 +1030,11 @@ elif "Regression" in page:
 # PAGE: CLASSIFICATION
 # ════════════════════════════════════════════════════════════════════════════
 elif "Classification" in page:
-    st.markdown("<h1>Classification — Predicting High vs Low Obesity Risk</h1>", unsafe_allow_html=True)
-    st.markdown("*Binary outcome: High risk (Obesity > median) vs Low risk (Obesity ≤ median)*")
+    hero(
+        "Random Forest · Logistic · SVM · 5-Fold CV",
+        "Classification",
+        "Predicting high vs. low obesity risk groups across two datasets using supervised learning with stratified cross-validation."
+    )
 
     tab1, tab2 = st.tabs(["Dataset A — Inactive + StratCat", "Dataset B — Inactive + PoorDiet + StratCat"])
 
@@ -920,8 +1084,11 @@ elif "Classification" in page:
 # PAGE: CLUSTERING
 # ════════════════════════════════════════════════════════════════════════════
 elif "Clustering" in page:
-    st.markdown("<h1>K-Means Clustering & PCA</h1>", unsafe_allow_html=True)
-    st.markdown("*Unsupervised discovery of behavioral phenotypes across U.S. demographic groups.*")
+    hero(
+        "K-Means · PCA · Silhouette = 0.43 · k = 4",
+        "Clustering & PCA",
+        "Unsupervised discovery of behavioral phenotypes — including the Young Adult Paradox — across U.S. demographic groups."
+    )
 
     section("Optimal K Selection")
     img("cluster_outputs/cluster_1_optimal_k.png", "Elbow method and silhouette scores — k=4 selected")
@@ -979,8 +1146,11 @@ elif "Clustering" in page:
 # PAGE: FINDINGS & CONCLUSIONS
 # ════════════════════════════════════════════════════════════════════════════
 elif "Findings" in page:
-    st.markdown("<h1>Findings & Conclusions</h1>", unsafe_allow_html=True)
-    st.markdown("*Complete summary of all results, insights, and public health implications.*")
+    hero(
+        "All Six Research Questions · Public Health Implications",
+        "Findings & Conclusions",
+        "Complete summary of results across regression, classification, and clustering — with real-world context."
+    )
 
     c1,c2,c3,c4,c5 = st.columns(5)
     with c1: st.markdown(kpi("Best Reg. R²", "0.237", "Ridge — Inactive + PoorDiet"), unsafe_allow_html=True)
