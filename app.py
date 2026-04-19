@@ -59,6 +59,17 @@ section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {
 section[data-testid="stSidebar"] .stSelectbox span {{ color: {WHITE} !important; }}
 section[data-testid="stSidebar"] .stSelectbox svg {{ fill: {WHITE} !important; }}
 
+/* ── Global body text override ── */
+.stMarkdown p, .stMarkdown li, .stMarkdown span,
+.element-container p, .element-container li,
+.stText, [data-testid="stMarkdownContainer"] p,
+[data-testid="stMarkdownContainer"] li,
+[data-testid="stMarkdownContainer"] span,
+div[class*="markdown"] p, div[class*="markdown"] li {{
+    font-size: 38px !important;
+    line-height: 1.75 !important;
+}}
+
 /* ── Typography ── */
 h1 {{ color: {TEXT}; font-size: 90px; font-weight: 800; letter-spacing: -0.6px; }}
 h2 {{ color: {TEXT}; font-size: 60px; font-weight: 700; letter-spacing: -0.3px; }}
