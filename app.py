@@ -48,7 +48,7 @@ section[data-testid="stSidebar"] {{
 }}
 section[data-testid="stSidebar"] * {{ color: {WHITE} !important; }}
 section[data-testid="stSidebar"] .stSelectbox label {{
-    color: {GOLD} !important; font-size: 30px !important;
+    color: {GOLD} !important; font-size: 12px !important;
     font-weight: 700 !important; text-transform: uppercase; letter-spacing: 1px;
 }}
 section[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] > div {{
@@ -66,14 +66,14 @@ section[data-testid="stSidebar"] .stSelectbox svg {{ fill: {WHITE} !important; }
 [data-testid="stMarkdownContainer"] li,
 [data-testid="stMarkdownContainer"] span,
 div[class*="markdown"] p, div[class*="markdown"] li {{
-    font-size: 38px !important;
+    font-size: 15px !important;
     line-height: 1.75 !important;
 }}
 
 /* ── Typography ── */
-h1 {{ color: {TEXT}; font-size: 90px; font-weight: 800; letter-spacing: -0.6px; }}
-h2 {{ color: {TEXT}; font-size: 60px; font-weight: 700; letter-spacing: -0.3px; }}
-h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
+h1 {{ color: {TEXT}; font-size: 14px; font-weight: 800; letter-spacing: -0.6px; }}
+h2 {{ color: {TEXT}; font-size: 26px; font-weight: 700; letter-spacing: -0.3px; }}
+h3 {{ color: {TEXT}; font-size: 20px; font-weight: 600; }}
 
 /* ── Page Hero ── */
 .page-hero {{
@@ -82,15 +82,15 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     margin-bottom: 30px;
 }}
 .page-hero-eye {{
-    font-size: 33px; font-weight: 700; color: {GOLD};
+    font-size: 13px; font-weight: 700; color: {GOLD};
     text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
 }}
 .page-hero-title {{
-    font-size: 96px; font-weight: 800; color: {TEXT};
+    font-size: 16px; font-weight: 800; color: {TEXT};
     letter-spacing: -0.8px; margin: 0 0 10px 0; line-height: 1.15;
 }}
 .page-hero-sub {{
-    font-size: 45px; color: {SLATE}; margin: 0; line-height: 1.65; max-width: 720px;
+    font-size: 18px; color: {SLATE}; margin: 0; line-height: 1.65; max-width: 720px;
 }}
 
 /* ── Section Labels (lightweight, replaces heavy navy bars) ── */
@@ -98,7 +98,7 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 33px;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.3px;
@@ -123,14 +123,14 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     margin-bottom: 8px;
 }}
 .kpi-card .label {{
-    font-size: 30px; color: {MUTED}; font-weight: 700;
+    font-size: 11px; color: {MUTED}; font-weight: 700;
     text-transform: uppercase; letter-spacing: 0.9px;
 }}
 .kpi-card .value {{
-    font-size: 78px; font-weight: 800; color: {TEXT};
+    font-size: 26px; font-weight: 800; color: {TEXT};
     margin-top: 8px; letter-spacing: -0.5px; line-height: 1.15;
 }}
-.kpi-card .sub {{ font-size: 36px; color: {SLATE}; margin-top: 6px; }}
+.kpi-card .sub {{ font-size: 13px; color: {SLATE}; margin-top: 4px; }}
 
 /* ── Content Card (generic container) ── */
 .card {{
@@ -140,7 +140,7 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     padding: 22px 26px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 14px rgba(15,45,111,0.05);
     margin-bottom: 14px;
-    font-size: 42px;
+    font-size: 15px;
     color: #374151;
     line-height: 1.8;
 }}
@@ -162,19 +162,19 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     background: linear-gradient(90deg, {NAVY} 0%, {GOLD} 100%);
 }}
 .finding-box .ftitle {{
-    font-size: 30px; font-weight: 700; color: {MUTED};
+    font-size: 11px; font-weight: 700; color: {MUTED};
     text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 8px;
 }}
 .finding-box .fwinner {{
-    font-size: 63px; font-weight: 800; color: {TEXT};
+    font-size: 26px; font-weight: 800; color: {TEXT};
     margin: 4px 0; letter-spacing: -0.3px;
 }}
 .finding-box .fmetric {{
-    display: inline-block; font-size: 36px; font-weight: 600; color: {NAVY};
+    display: inline-block; font-size: 13px; font-weight: 600; color: {NAVY};
     background: rgba(15,45,111,0.08); padding: 3px 11px; border-radius: 20px; margin-top: 6px;
 }}
 .finding-box .fbody {{
-    font-size: 40px; color: {SLATE}; line-height: 1.75; margin-top: 12px;
+    font-size: 15px; color: {SLATE}; line-height: 1.6; margin-top: 10px;
     border-top: 1px solid #F3F4F6; padding-top: 12px;
 }}
 
@@ -184,10 +184,10 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     border-radius: 10px; padding: 16px 20px; margin: 12px 0;
 }}
 .implication .ititle {{
-    font-size: 33px; font-weight: 700; color: #92400E;
+    font-size: 12px; font-weight: 700; color: #92400E;
     text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;
 }}
-.implication .ibody {{ font-size: 40px; color: #78350F; line-height: 1.75; }}
+.implication .ibody {{ font-size: 15px; color: #78350F; line-height: 1.6; }}
 
 /* ── Insight Cards (dark, for highlights / conclusions) ── */
 .insight-card {{
@@ -196,18 +196,18 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     border: 1px solid rgba(255,255,255,0.07);
 }}
 .insight-card .ic-tag {{
-    font-size: 30px; font-weight: 700; color: {GOLD};
+    font-size: 11px; font-weight: 700; color: {GOLD};
     text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 8px;
 }}
 .insight-card .ic-title {{
-    font-size: 48px; font-weight: 700; color: {WHITE};
+    font-size: 20px; font-weight: 700; color: {WHITE};
     margin-bottom: 10px; letter-spacing: -0.2px;
 }}
-.insight-card .ic-body {{ font-size: 40px; color: rgba(255,255,255,0.78); line-height: 1.75; }}
+.insight-card .ic-body {{ font-size: 15px; color: rgba(255,255,255,0.78); line-height: 1.6; }}
 .insight-card .ic-stat {{
     display: inline-block;
     background: rgba(200,153,43,0.18); color: {GOLD};
-    font-weight: 700; font-size: 39px; padding: 4px 12px;
+    font-weight: 700; font-size: 13px; padding: 3px 10px;
     border-radius: 20px; margin-top: 12px;
     border: 1px solid rgba(200,153,43,0.35);
 }}
@@ -218,12 +218,12 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
     border-radius: 12px; padding: 24px 18px; text-align: center;
     box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(15,45,111,0.05);
 }}
-.class-card .cc-icon {{ font-size: 90px; margin-bottom: 12px; }}
-.class-card .cc-title {{ font-size: 45px; font-weight: 700; color: {TEXT}; margin-bottom: 8px; }}
-.class-card .cc-body {{ font-size: 39px; color: {SLATE}; line-height: 1.75; }}
+.class-card .cc-icon {{ font-size: 17px; margin-bottom: 12px; }}
+.class-card .cc-title {{ font-size: 18px; font-weight: 700; color: {TEXT}; margin-bottom: 6px; }}
+.class-card .cc-body {{ font-size: 14px; color: {SLATE}; line-height: 1.6; }}
 .class-card .cc-stat {{
     display: inline-block; margin-top: 12px;
-    font-size: 36px; font-weight: 700; color: {NAVY};
+    font-size: 13px; font-weight: 700; color: {NAVY};
     background: rgba(15,45,111,0.08);
     padding: 4px 14px; border-radius: 20px;
     border: 1px solid rgba(15,45,111,0.15);
@@ -233,7 +233,7 @@ h3 {{ color: {TEXT}; font-size: 48px; font-weight: 600; }}
 .eco-warning {{
     background: #FFFBEB; border: 1px solid #FCD34D;
     border-radius: 10px; padding: 16px 20px; margin: 16px 0;
-    font-size: 42px; color: #78350F; line-height: 1.8;
+    font-size: 15px; color: #78350F; line-height: 1.7;
 }}
 
 /* ── Research Question Cards ── */
@@ -264,7 +264,7 @@ def img(path, caption=None, width=None):
     else:
         st.markdown(
             f"<div style='background:#FEF2F2; border:1px solid #FECACA; border-radius:8px; "
-            f"padding:12px 16px; font-size: 39px; color:#991B1B;'>"
+            f"padding:12px 16px; font-size: 16px; color:#991B1B;'>"
             f"⚠️ Chart not found: <code>{path}</code> — run the pipeline scripts to generate outputs.</div>",
             unsafe_allow_html=True
         )
@@ -333,12 +333,12 @@ with st.sidebar:
     # Brand header
     st.markdown(f"""
     <div style='padding:20px 4px 16px 4px;'>
-        <div style='font-size: 33px; font-weight:700; color:{GOLD}; text-transform:uppercase;
+        <div style='font-size: 13px; font-weight:700; color:{GOLD}; text-transform:uppercase;
                     letter-spacing:1.4px; margin-bottom:6px;'>CDC BRFSS · 2011–2024</div>
-        <div style='font-size: 54px; font-weight:800; color:#FFFFFF; line-height:1.25;'>
+        <div style='font-size: 22px; font-weight:800; color:#FFFFFF; line-height:1.25;'>
             Statistical Learning<br>Analysis
         </div>
-        <div style='font-size: 33px; color:rgba(255,255,255,0.45); margin-top:6px;'>
+        <div style='font-size: 13px; color:rgba(255,255,255,0.45); margin-top:6px;'>
             Ecological · Population-Level
         </div>
     </div>
@@ -359,31 +359,31 @@ with st.sidebar:
     # Key stats chips
     st.markdown(f"""
     <div style='height:1px; background:rgba(255,255,255,0.1); margin:18px 0 14px 0;'></div>
-    <div style='font-size: 30px; font-weight:700; color:{GOLD}; text-transform:uppercase;
+    <div style='font-size: 12px; font-weight:700; color:{GOLD}; text-transform:uppercase;
                 letter-spacing:1px; margin-bottom:10px;'>Key Numbers</div>
     <div style='display:flex; flex-wrap:wrap; gap:6px;'>
         <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-                     border-radius:20px; padding:4px 10px; font-size: 33px; color:#fff;'>391 obs.</span>
+                     border-radius:20px; padding:4px 10px; font-size: 13px; color:#fff;'>391 obs.</span>
         <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-                     border-radius:20px; padding:4px 10px; font-size: 33px; color:#fff;'>14 years</span>
+                     border-radius:20px; padding:4px 10px; font-size: 13px; color:#fff;'>14 years</span>
         <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-                     border-radius:20px; padding:4px 10px; font-size: 33px; color:#fff;'>R²=0.237</span>
+                     border-radius:20px; padding:4px 10px; font-size: 13px; color:#fff;'>R²=0.237</span>
         <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-                     border-radius:20px; padding:4px 10px; font-size: 33px; color:#fff;'>70.3% CV</span>
+                     border-radius:20px; padding:4px 10px; font-size: 13px; color:#fff;'>70.3% CV</span>
         <span style='background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
-                     border-radius:20px; padding:4px 10px; font-size: 33px; color:#fff;'>k=4 clusters</span>
+                     border-radius:20px; padding:4px 10px; font-size: 13px; color:#fff;'>k=4 clusters</span>
     </div>
     <div style='height:1px; background:rgba(255,255,255,0.1); margin:18px 0 14px 0;'></div>
-    <div style='font-size: 30px; font-weight:700; color:{GOLD}; text-transform:uppercase;
+    <div style='font-size: 12px; font-weight:700; color:{GOLD}; text-transform:uppercase;
                 letter-spacing:1px; margin-bottom:8px;'>Methods</div>
-    <div style='font-size: 36px; color:rgba(255,255,255,0.65); line-height:2;'>
+    <div style='font-size: 14px; color:rgba(255,255,255,0.65); line-height:2;'>
         OLS · Ridge Regression<br>
         Logistic · Decision Tree<br>
         Random Forest · SVM<br>
         K-Means · PCA
     </div>
     <div style='height:1px; background:rgba(255,255,255,0.1); margin:18px 0 14px 0;'></div>
-    <div style='font-size: 33px; color:rgba(255,255,255,0.5); line-height:1.8;'>
+    <div style='font-size: 13px; color:rgba(255,255,255,0.5); line-height:1.8;'>
         <span style='color:#fff; font-weight:600;'>Chris Rodrigues</span><br>
         MAS Data Science<br>
         Illinois Institute of Technology
@@ -426,7 +426,7 @@ if "Overview" in page:
     with col2:
         section("Pipeline")
         card(f"""
-            <div style='font-size: 39px; line-height:2.1;'>
+            <div style='font-size: 16px; line-height:2.1;'>
             <b style='color:{GOLD};'>1.</b> brfss_clean.py &nbsp;→&nbsp; ETL pipeline<br>
             <b style='color:{GOLD};'>2.</b> brfss_eda.py &nbsp;&nbsp;&nbsp;→&nbsp; EDA & correlations<br>
             <b style='color:{GOLD};'>3.</b> brfss_model.py &nbsp;→&nbsp; OLS + Ridge regression<br>
@@ -480,13 +480,13 @@ elif "Executive Summary" in page:
     # ── The Big Picture ───────────────────────────────────────────────────
     section("The Big Picture")
     card(f"""
-        <p style='margin:0 0 14px 0; font-size: 45px;'>
+        <p style='margin:0 0 14px 0; font-size: 19px;'>
             Over the past 14 years, obesity among American adults has risen from
             <b>27.5% to 33.3%</b> — an increase of nearly 6 percentage points affecting tens of millions of people.
             This study used a large national survey — the CDC's Behavioral Risk Factor Surveillance System (BRFSS) —
             to ask a direct question:
         </p>
-        <p style='margin:0 0 14px 0; font-size: 48px; font-weight:700; color:{NAVY};
+        <p style='margin:0 0 14px 0; font-size: 20px; font-weight:700; color:{NAVY};
                   border-left:4px solid {GOLD}; padding-left:16px; line-height:1.6;'>
             Can we explain why obesity is rising by looking at whether Americans are exercising less
             or eating worse?
@@ -516,30 +516,30 @@ elif "Executive Summary" in page:
         <div style='display:flex; flex-wrap:wrap; gap:12px; margin-top:8px;'>
             <div style='flex:1; min-width:200px; background:{BG}; border-radius:10px;
                         padding:16px 18px; border:1px solid {BORDER};'>
-                <div style='font-size: 66px; margin-bottom:8px;'>⚖️</div>
+                <div style='font-size: 28px; margin-bottom:8px;'>⚖️</div>
                 <div style='font-weight:700; color:{NAVY}; margin-bottom:4px;'>Obesity Rates</div>
-                <div style='font-size: 39px; color:{SLATE}; line-height:1.6;'>
+                <div style='font-size: 16px; color:{SLATE}; line-height:1.6;'>
                     What percentage of adults in each group are obese?
                 </div>
             </div>
             <div style='flex:1; min-width:200px; background:{BG}; border-radius:10px;
                         padding:16px 18px; border:1px solid {BORDER};'>
-                <div style='font-size: 66px; margin-bottom:8px;'>🏃</div>
+                <div style='font-size: 28px; margin-bottom:8px;'>🏃</div>
                 <div style='font-weight:700; color:{NAVY}; margin-bottom:4px;'>Physical Activity</div>
-                <div style='font-size: 39px; color:{SLATE}; line-height:1.6;'>
+                <div style='font-size: 16px; color:{SLATE}; line-height:1.6;'>
                     What percentage of adults do no leisure-time physical activity at all?
                 </div>
             </div>
             <div style='flex:1; min-width:200px; background:{BG}; border-radius:10px;
                         padding:16px 18px; border:1px solid {BORDER};'>
-                <div style='font-size: 66px; margin-bottom:8px;'>🥗</div>
+                <div style='font-size: 28px; margin-bottom:8px;'>🥗</div>
                 <div style='font-weight:700; color:{NAVY}; margin-bottom:4px;'>Diet Quality</div>
-                <div style='font-size: 39px; color:{SLATE}; line-height:1.6;'>
+                <div style='font-size: 16px; color:{SLATE}; line-height:1.6;'>
                     What percentage of adults eat fruit less than once a day, or vegetables less than once a day?
                 </div>
             </div>
         </div>
-        <p style='margin:14px 0 0 0; font-size: 40px; color:{SLATE};'>
+        <p style='margin:14px 0 0 0; font-size: 16px; color:{SLATE};'>
             We looked at these figures broken down by <b>age, income, education, race/ethnicity, and sex</b> —
             giving us a detailed picture of how obesity and its behavioral predictors differ
             across the American population.
@@ -582,11 +582,11 @@ elif "Executive Summary" in page:
         st.markdown(f"""
         <div class="finding-box">
             <div style='display:flex; align-items:flex-start; gap:14px;'>
-                <span style='font-size: 78px; line-height:1;'>{icon}</span>
+                <span style='font-size: 32px; line-height:1;'>{icon}</span>
                 <div style='flex:1;'>
-                    <div class="fwinner" style='font-size: 51px; margin:0 0 8px 0;'>{title}</div>
+                    <div class="fwinner" style='font-size: 21px; margin:0 0 8px 0;'>{title}</div>
                     <div class="fbody" style='border-top:none; padding-top:0; margin-top:0;
-                                              font-size: 42px;'>{body}</div>
+                                              font-size: 17px;'>{body}</div>
                 </div>
             </div>
         </div>
@@ -598,7 +598,7 @@ elif "Executive Summary" in page:
     col1, col2 = st.columns([3, 2])
     with col1:
         card(f"""
-            <div style='font-size: 45px; font-weight:700; color:{NAVY}; margin-bottom:12px;'>
+            <div style='font-size: 19px; font-weight:700; color:{NAVY}; margin-bottom:12px;'>
                 Predicting obesity from behavior
             </div>
             <p style='margin:0 0 12px 0;'>
@@ -607,7 +607,7 @@ elif "Executive Summary" in page:
                 the relationships are real and not due to chance. But together, they explained only about
                 <b>24% of the variation in obesity rates.</b>
             </p>
-            <p style='margin:0; color:{SLATE}; font-size: 40px;'>
+            <p style='margin:0; color:{SLATE}; font-size: 16px;'>
                 In plain terms: if you know how inactive and how poorly-fed a group is, you can make a
                 better-than-random guess about their obesity rate — but most of the picture is missing.
             </p>
@@ -622,16 +622,16 @@ elif "Executive Summary" in page:
             st.markdown(f"""
             <div style='background:{BG}; border:1px solid {BORDER}; border-radius:10px;
                         padding:14px 16px; margin-bottom:10px;'>
-                <div style='font-size: 66px; font-weight:800; color:{NAVY};
+                <div style='font-size: 28px; font-weight:800; color:{NAVY};
                             letter-spacing:-0.5px;'>{stat}</div>
-                <div style='font-size: 36px; color:{SLATE}; margin-top:4px;
+                <div style='font-size: 14px; color:{SLATE}; margin-top:4px;
                             line-height:1.5;'>{label}</div>
             </div>
             """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     card(f"""
-        <div style='font-size: 45px; font-weight:700; color:{NAVY}; margin-bottom:12px;'>
+        <div style='font-size: 19px; font-weight:700; color:{NAVY}; margin-bottom:12px;'>
             Can a computer predict who is at high risk?
         </div>
         <p style='margin:0 0 12px 0;'>
@@ -641,7 +641,7 @@ elif "Executive Summary" in page:
             (50%) but not highly reliable. Adding diet quality alongside inactivity improved accuracy
             by 3–5 percentage points across all methods.
         </p>
-        <p style='margin:0; color:{SLATE}; font-size: 40px;'>
+        <p style='margin:0; color:{SLATE}; font-size: 16px;'>
             The most important finding: physical inactivity alone accounts for over 90% of the predictive
             signal when diet data is not available. When both measures are available,
             <b>diet quality becomes the most important feature</b> — overtaking inactivity.
@@ -660,7 +660,7 @@ elif "Executive Summary" in page:
             <div style='flex:1; min-width:180px; background:#FEF2F2; border:1px solid #FECACA;
                         border-radius:10px; padding:16px;'>
                 <div style='font-weight:700; color:#991B1B; margin-bottom:6px;'>🔴 High Risk Group</div>
-                <div style='font-size: 36px; color:#7F1D1D; line-height:1.7;'>
+                <div style='font-size: 14px; color:#7F1D1D; line-height:1.7;'>
                     27% of records<br>
                     Obesity: <b>36%</b> · Inactivity: <b>33%</b><br>
                     Poor diet: <b>35%</b><br>
@@ -670,7 +670,7 @@ elif "Executive Summary" in page:
             <div style='flex:1; min-width:180px; background:#F0FDF4; border:1px solid #BBF7D0;
                         border-radius:10px; padding:16px;'>
                 <div style='font-weight:700; color:#166534; margin-bottom:6px;'>🟢 Low Risk Group</div>
-                <div style='font-size: 36px; color:#14532D; line-height:1.7;'>
+                <div style='font-size: 14px; color:#14532D; line-height:1.7;'>
                     7% of records<br>
                     Obesity: <b>26%</b> · Inactivity: <b>15%</b><br>
                     Poor diet: <b>24%</b><br>
@@ -680,7 +680,7 @@ elif "Executive Summary" in page:
             <div style='flex:1; min-width:180px; background:#EFF6FF; border:1px solid #BFDBFE;
                         border-radius:10px; padding:16px;'>
                 <div style='font-weight:700; color:#1E40AF; margin-bottom:6px;'>🔵 Moderate Group</div>
-                <div style='font-size: 36px; color:#1E3A8A; line-height:1.7;'>
+                <div style='font-size: 14px; color:#1E3A8A; line-height:1.7;'>
                     58% of records<br>
                     Obesity: <b>32%</b> · Inactivity: <b>25%</b><br>
                     Poor diet: <b>29%</b><br>
@@ -690,7 +690,7 @@ elif "Executive Summary" in page:
             <div style='flex:1; min-width:180px; background:#FFFBEB; border:1px solid #FCD34D;
                         border-radius:10px; padding:16px;'>
                 <div style='font-weight:700; color:#92400E; margin-bottom:6px;'>⚡ Young Adult Paradox</div>
-                <div style='font-size: 36px; color:#78350F; line-height:1.7;'>
+                <div style='font-size: 14px; color:#78350F; line-height:1.7;'>
                     7% of records<br>
                     Obesity: <b>15%</b> · Inactivity: <b>19%</b><br>
                     Poor diet: <b>31%</b><br>
@@ -725,13 +725,13 @@ elif "Executive Summary" in page:
                     padding:18px 22px; margin-bottom:10px;
                     box-shadow:0 1px 3px rgba(0,0,0,0.04);'>
             <div style='display:flex; gap:14px; align-items:flex-start;'>
-                <div style='background:{NAVY}; color:{WHITE}; font-size: 39px; font-weight:800;
+                <div style='background:{NAVY}; color:{WHITE}; font-size: 16px; font-weight:800;
                             width:28px; height:28px; border-radius:50%; display:flex;
                             align-items:center; justify-content:center; flex-shrink:0;
                             margin-top:2px;'>{i}</div>
                 <div>
-                    <div style='font-size: 42px; font-weight:700; color:{TEXT}; margin-bottom:6px;'>{title}</div>
-                    <div style='font-size: 40px; color:{SLATE}; line-height:1.7;'>{body}</div>
+                    <div style='font-size: 17px; font-weight:700; color:{TEXT}; margin-bottom:6px;'>{title}</div>
+                    <div style='font-size: 16px; color:{SLATE}; line-height:1.7;'>{body}</div>
                 </div>
             </div>
         </div>
@@ -741,9 +741,9 @@ elif "Executive Summary" in page:
     section("Important Caveats")
     st.markdown(f"""
     <div class="eco-warning">
-        <div style='font-size: 39px; font-weight:700; color:#92400E; margin-bottom:10px;
+        <div style='font-size: 16px; font-weight:700; color:#92400E; margin-bottom:10px;
                     text-transform:uppercase; letter-spacing:0.5px;'>⚠️ Keep These in Mind</div>
-        <div style='display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; font-size: 40px;
+        <div style='display:grid; grid-template-columns:1fr 1fr; gap:10px 24px; font-size: 16px;
                     color:#78350F; line-height:1.7;'>
             <div>📊 <b>Population-level data, not individual data.</b> A correlation between group inactivity
             rates and group obesity rates does not mean that any particular inactive person will become
@@ -795,7 +795,7 @@ elif "Data Preparation" in page:
     section("Step 1 — Understanding the Raw Data")
     st.markdown(f"""
     <div style='background:{WHITE}; border-radius:10px; padding:22px;
-                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size: 42px;
+                box-shadow:0 2px 8px rgba(13,43,94,0.08); font-size: 17px;
                 color:#333; line-height:1.8;'>
         The raw BRFSS file arrives with <b>110,880 rows and 33 columns</b> — but most of those
         columns are either duplicates, codes that repeat information already in plain text,
@@ -1368,13 +1368,13 @@ elif "Findings" in page:
             <div style='background:{WHITE}; border-radius:8px; padding:12px 16px;
                         border-left:4px solid {RED if i < 2 else GOLD};
                         margin-bottom:10px; box-shadow:0 1px 4px rgba(0,0,0,0.05);'>
-                <div style='font-size: 36px; font-weight:800; color:{NAVY}; margin-bottom:3px;'>⚠️ {title}</div>
-                <div style='font-size: 39px; color:#555; line-height:1.5;'>{desc}</div>
+                <div style='font-size: 14px; font-weight:800; color:{NAVY}; margin-bottom:3px;'>⚠️ {title}</div>
+                <div style='font-size: 16px; color:#555; line-height:1.5;'>{desc}</div>
             </div>""", unsafe_allow_html=True)
 
     st.markdown(f"""
     <div style='text-align:center; margin-top:30px; padding:16px;
-                border-top:2px solid {GOLD}; color:#888; font-size: 39px;'>
+                border-top:2px solid {GOLD}; color:#888; font-size: 16px;'>
         Illinois Institute of Technology · MAS Data Science · Statistical Learning · Chris Rodrigues · 2025<br>
         <a href='https://github.com/chrisharry99us/brfss-statistical-learning'
            style='color:{GOLD}; text-decoration:none;'>
